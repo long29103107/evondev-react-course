@@ -1,15 +1,15 @@
-@import './tailwind.css'; 
+@import "./tailwind.css";
 
 /* Font classes */
 body {
-    font-family: 'DM Sans', sans-serif;
-    background-color: #0f172a;
-    padding: 0 1.25rem;
+  font-family: "DM Sans", sans-serif;
+  background-color: #0f172a;
+  padding: 0 1.25rem;
 }
 
 @layer components {
-    .page-container {
-        max-width: 1280px;
-        margin: 0 auto;
-    }
+  .page-container {
+    max-width: 1280px;
+    margin: 0 auto;
+  }
 }
