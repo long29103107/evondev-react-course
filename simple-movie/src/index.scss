@@ -1,20 +1,5 @@
 @import './tailwind.css'; 
 
-/* Root variables */
-:root {
-    --text-primary: #F62682;
-    --text-secondary: #6F5CF1;
-}
-
-/* Text classes */
-.text-primary {
-    color: var(--text-primary);
-}
-
-.text-secondary {
-    color: var(--text-secondary);
-}
-
 /* Font classes */
 body {
     font-family: 'DM Sans', sans-serif;
