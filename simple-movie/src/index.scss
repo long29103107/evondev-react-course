@@ -1,7 +1,17 @@
-@import "./index.css";
+@import './tailwind.css'; 
 
-// @layer base {
-//   body {
-//     @apply bg-slate-900 font-body px-5 text-white;
-//   }
-// }
+/* Root variables */
+:root {
+    --text-primary: #F62682;
+}
+
+/* Text classes */
+.text-primary {
+    color: var(--text-primary);
+}
+
+/* Font classes */
+.font-body {
+    font-family: 'DM Sans', sans-serif;
+}
+
