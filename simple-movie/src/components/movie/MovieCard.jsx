@@ -1,20 +1,25 @@
 import React from "react";
 
-const MovieCard = () => {
+const MovieCard = ({ item }) => {
+
+  const { title, poster_path, release_date, vote_average } = item;
+
   return (
     <>
-      <div className="movie-card rounded-lg bg-slate-800 p-3 text-white">
+      <div className="movie-card flex flex-col rounded-lg bg-slate-800 p-3 text-white">
         <img
-          src="https://genk.mediacdn.vn/2018/10/13/photo-1-15394076422481094585130.jpg"
+            src={`https://image.tmdb.org/t/p/w500${poster_path}`}
           alt=""
           className="w-full h-[250px] object-cover rounded-lg mb-5"
         />
-        <h3 className="text-white text-xl font-bold mb-3">
-          Spider-Man: No Way Home
-        </h3>
-        <div className="flex items-center justify-between text-sm opacity-50 mb-10">
-          <span>2017</span>
-          <span>8.5</span>
+        <div className="flex flex-col flex-1">
+          <h3 className="text-white text-xl font-bold mb-3">
+            { title }
+          </h3>
+          <div className="flex items-center justify-between text-sm opacity-50 mb-10">
+            <span>{ new Date(release_date).getFullYear() }</span>
+            <span>{ vote_average }</span>
+          </div>
         </div>
 
         <button className="py-3 px-6 rounded-lg bg-primary capitalize font-medium w-full">
