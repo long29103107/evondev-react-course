@@ -1,5 +1,4 @@
-import { NavLink } from "react-router-dom";
-import MovieCard from "./components/movie/MovieCard";
+import MovieList from "./components/movie/MovieList";
 
 const App = () => {
   return (
@@ -43,9 +42,7 @@ const App = () => {
         <h2 className="capitalize text-3xl text-white font-bold mb-5">
           Now playing
         </h2>
-        <div className="movie-list grid grid-cols-4 gap-10">
-          <MovieCard></MovieCard>
-        </div>
+        <MovieList></MovieList>
       </section>
 
       <section className="movie-layout page-container pb-10">
