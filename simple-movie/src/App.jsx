@@ -8,7 +8,10 @@ const App = () => {
         <span>Movies</span>
       </header>
 
-      <section className="banner h-[500px] rounded-lg bg-slate-800 page-container mb-10">
+      <section
+        id="banner"
+        className="banner h-[500px] rounded-lg bg-slate-800 page-container mb-10"
+      >
         <div className="w-full h-full rounded-lg relative">
           <div className="overlay absolute inset-0 bg-gradient-to-t from-[rgba(0,0,0,0.5)] to-[rgba(0,0,0,0.5)] rounded-lg"></div>
 
@@ -38,37 +41,25 @@ const App = () => {
         </div>
       </section>
 
-      <section className="movie-layout page-container pb-10">
+      <section id="now-playing" className="movie-layout page-container pb-10">
         <h2 className="capitalize text-3xl text-white font-bold mb-5">
           Now playing
         </h2>
         <MovieList></MovieList>
       </section>
 
-      <section className="movie-layout page-container pb-10">
+      <section id="top-trending" className="movie-layout page-container pb-10">
         <h2 className="capitalize text-3xl text-white font-bold mb-5">
           Top trending
         </h2>
-        <div className="movie-list grid grid-cols-4 gap-10">
-          <div className="movie-card rounded-lg bg-slate-800 p-3 text-white">
-            <img
-              src="https://genk.mediacdn.vn/2018/10/13/photo-1-15394076422481094585130.jpg"
-              alt=""
-              className="w-full h-[250px] object-cover rounded-lg mb-5"
-            />
-            <h3 className="text-white text-xl font-bold mb-3">
-              Spider-Man: No Way Home
-            </h3>
-            <div className="flex items-center justify-between text-sm opacity-50 mb-10">
-              <span>2017</span>
-              <span>8.5</span>
-            </div>
+        <MovieList type="top_rated"></MovieList>
+      </section>
 
-            <button className="py-3 px-6 rounded-lg bg-primary capitalize font-medium w-full">
-              Watch now
-            </button>
-          </div>
-        </div>
+      <section id="popular" className="movie-layout page-container pb-10">
+        <h2 className="capitalize text-3xl text-white font-bold mb-5">
+          Popular
+        </h2>
+        <MovieList type="popular"></MovieList>
       </section>
     </>
   );
