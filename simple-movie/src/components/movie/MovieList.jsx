@@ -1,8 +1,7 @@
-import { Swiper, SwiperSlide } from "swiper/react";
 import MovieCard from "./MovieCard";
-import "swiper/css";
 import useSWR from "swr";
 import { fetcher } from "@/config";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 const MovieList = ({ type = "now_playing" }) => {
   const { data } = useSWR(
