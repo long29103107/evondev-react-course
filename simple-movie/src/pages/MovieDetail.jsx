@@ -2,6 +2,8 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import useSWR from "swr";
 import { fetcher, apiKey } from "@/config";
+import { Swiper, SwiperSlide } from "swiper/react";
+import MovieCard from "@/components/movie/MovieCard";
 
 const MovieDetail = () => {
   const { movieId } = useParams();
@@ -51,6 +53,7 @@ const MovieDetail = () => {
       </p>
       <MovieCredits></MovieCredits>
       <MovieVideos></MovieVideos>
+      <MovieSimilar></MovieSimilar>
     </div>
   );
 };
@@ -95,7 +98,56 @@ const MovieVideos = () => {
   const { results } = data;
   if (!results || results.length <= 0) return null;
 
-  return <></>;
+  return (
+    <div className="py-10">
+      <div className="grid grid-col gap-10">
+        {results.slice(0, 2).map((video) => (
+          <div key={video.id} className="">
+            <h3 className="text-xl font-medium bg-secondary p-3 mb-5 inline-block">
+              {video.name}
+            </h3>
+            <div className="w-full aspect-video">
+              <iframe
+                width={860}
+                height={486}
+                src={`https://www.youtube.com/embed/${video.key}`}
+                title={video.name}
+                className="w-full h-full object-cover"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+const MovieSimilar = () => {
+  const { movieId } = useParams();
+  const { data } = useSWR(
+    `https://api.themoviedb.org/3/movie/${movieId}/similar?api_key=${apiKey}`,
+    fetcher
+  );
+  if (!data) return null;
+  const { results } = data;
+  if (!results || results.length <= 0) return null;
+
+  return (
+    <div className="py-10">
+      <h2 className="text-3xl mb-10 font-medium">Similar Movies</h2>
+      <div className="movie-list">
+        <Swiper grabCursor spaceBetween={40} slidesPerView="auto">
+          {results.map((item) => (
+            <SwiperSlide key={item.id}>
+              <MovieCard item={item} />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
+    </div>
+  );
 };
 
 export default MovieDetail;
