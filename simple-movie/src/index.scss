@@ -5,6 +5,12 @@ body {
   font-family: "DM Sans", sans-serif;
   background-color: #0f172a;
   padding: 0 1.25rem;
+  color: white;
+}
+
+button,
+a {
+  cursor: pointer;
 }
 
 @layer components {
