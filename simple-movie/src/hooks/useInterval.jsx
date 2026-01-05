@@ -7,4 +7,4 @@ const useInterval = (callback, delay) => {
     }, [callback, delay]);
 };
 
-export default useInterval;
+export default useInterval; 
