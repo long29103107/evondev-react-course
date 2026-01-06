@@ -5,8 +5,11 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import BannerItem from "@/components/banner/BannerItem";
 
 const Banner = () => {
-  const { data } = useSWR( tmdbAPI.getMovieList('upcoming'), fetcher);
+  const { data } = useSWR(tmdbAPI.getMovieList('upcoming'), fetcher);
+  const { data: genres } = useSWR(tmdbAPI.getGenres(), fetcher);
+
   const movies = data?.results || [];
+  const genresList = genres?.genres || [];
 
   return (
     <>
@@ -18,7 +21,7 @@ const Banner = () => {
           {movies.length > 0 &&
             movies.map((movie) => (
               <SwiperSlide key={movie.id}>
-                <BannerItem movie={movie} />
+                <BannerItem movie={movie} genresList={genresList} />
               </SwiperSlide>
             ))}
         </Swiper>

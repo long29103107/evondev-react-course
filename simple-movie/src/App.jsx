@@ -10,7 +10,7 @@ const MovieDetailPage = lazy(() => import("@/pages/MovieDetailPage"));
 
 const App = () => {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+  <Suspense fallback={<div>Loading...</div>}>
     <Routes>
       <Route element={<Main />}>
         <Route
