@@ -1,7 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
 import Button from '@/components/button/Button';
-import { tmdbAPI } from '@/config';
+import { tmdbAPI } from '@/apiConfig/config';
 
 
 const BannerItem = ({ movie }) => {

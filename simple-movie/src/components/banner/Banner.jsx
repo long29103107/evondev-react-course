@@ -1,16 +1,11 @@
 import React from "react";
 import useSWR from "swr";
-import { fetcher } from "@/config";
+import { fetcher, tmdbAPI } from "@/apiConfig/config";
 import { Swiper, SwiperSlide } from "swiper/react";
 import BannerItem from "@/components/banner/BannerItem";
 
 const Banner = () => {
- 
-  const { data } = useSWR(
-    `https://api.themoviedb.org/3/movie/upcoming?api_key=405def94fe2b3f0e43afd7cc55071ef8`,
-    fetcher
-  );
-
+  const { data } = useSWR( tmdbAPI.getMovieList('upcoming'), fetcher);
   const movies = data?.results || [];
 
   return (
