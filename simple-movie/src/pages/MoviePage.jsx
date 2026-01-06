@@ -1,12 +1,14 @@
 import React from "react";
 import useSWR from "swr";
-import { fetcher, apiKey } from "@/config";
+import { fetcher } from "@/config";
 import MovieCard from "@/components/movie/MovieCard";
 import { useState, useMemo, useEffect } from "react";
-import useDebounce from "../hooks/useDebouce";
+import useDebounce from "@/hooks/useDebouce";
 import ReactPaginate from "react-paginate";
+import { tmdbAPI } from "@/config";
 
 const itemsPerPage = 20;
+
 
 const MoviePage = () => {
   const [nextPage, setNextPage] = useState(1);
@@ -23,26 +25,24 @@ const MoviePage = () => {
 
   const url = useMemo(() => {
     if (!searchTerm) {
-      return `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&page=${nextPage}`;
+      return tmdbAPI.getMovieList('popular', nextPage);
     }
 
-    return `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(
-      searchTerm
-    )}&page=${nextPage}`;
+    return tmdbAPI.getMovieSearch(searchTerm, nextPage);
   }, [searchTerm, nextPage]);
 
   const { data, isLoading } = useSWR(url, fetcher);
 
   useEffect(() => {
-    if (!data || !data.total_pages) return;
-    setPageCount(Math.ceil(data.total_pages / itemsPerPage));
+    if (!data || !data.total_results) return;
+    setPageCount(Math.ceil(data.total_results / itemsPerPage));
   }, [itemOffset, data]);
 
-  if (!data || !data.total_pages) return null;
+  if (!data || !data.total_results) return;
   const movies = data.results || [];
 
   const handlePageClick = (event) => {
-    const newOffset = (event.selected * itemsPerPage) % data.total_pages;
+    const newOffset = (event.selected * itemsPerPage) % data.total_results;
     setItemOffset(newOffset);
     setNextPage(event.selected + 1);
   };
@@ -110,13 +110,14 @@ const MoviePage = () => {
       <div className="mt-10">
         <ReactPaginate
           breakLabel="..."
-          nextLabel="next >"
+          nextLabel="Next >"
           onPageChange={handlePageClick}
           pageRangeDisplayed={5}
           pageCount={pageCount}
-          previousLabel="< previous"
+          previousLabel="< Previous"
           renderOnZeroPageCount={null}
           className="pagination"
+          forcePage={nextPage - 1}
         />
       </div>
     </div>

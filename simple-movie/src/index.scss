@@ -1,4 +1,5 @@
 @import "./tailwind.css";
+@import "./theme.css";
 
 /* Font classes */
 body {
@@ -29,6 +30,17 @@ a {
   .banner .swiper {
     height: 100% !important;
   }
+
+  //pagination
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+
+    .selected {
+      color: var(--color-primary);
+    }
+  }
 }
 
-//pagination
