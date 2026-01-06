@@ -17,7 +17,7 @@ const Button = ({ onclick, className, children, type = 'button', bgColor = 'prim
             onClick={onclick}
             className={`py-3 px-6 rounded-lg capitalize font-medium ${bgClassName} ${className}`}
             type={type}
-            >
+        >
             {children}
         </button>
     )
