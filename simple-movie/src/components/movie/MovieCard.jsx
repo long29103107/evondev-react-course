@@ -56,7 +56,7 @@ export default MovieCardWithErrorBoundary;
 
 export const MovieCardSkeleton = () => {
   return (
-    <div className="movie-card h-full flex flex-col rounded-lg bg-slate-800 p-3 text-white">
+    <div className="movie-card h-full w-full flex flex-col rounded-lg bg-slate-800 p-3 text-white">
       <LoadingSkeleton
         width="100%"
         height="250px"

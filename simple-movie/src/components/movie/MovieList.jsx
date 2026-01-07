@@ -8,47 +8,37 @@ import { MovieCardSkeleton } from "./MovieCard";
 
 const MovieList = ({ type = "now_playing" }) => {
   const { data, isLoading } = useSWR(tmdbAPI.getMovieList(type), fetcher);
-
   const movies = data?.results || [];
 
   return (
     <div className="movie-list">
-      {!isLoading && (
+      {isLoading && (
         <>
           <Swiper grabCursor spaceBetween={40} slidesPerView="auto">
             <SwiperSlide>
               <MovieCardSkeleton />
             </SwiperSlide>
-          </Swiper>
-          <Swiper grabCursor spaceBetween={40} slidesPerView="auto">
             <SwiperSlide>
               <MovieCardSkeleton />
             </SwiperSlide>
-          </Swiper>
-          <Swiper grabCursor spaceBetween={40} slidesPerView="auto">
             <SwiperSlide>
               <MovieCardSkeleton />
             </SwiperSlide>
-          </Swiper>
-          <Swiper grabCursor spaceBetween={40} slidesPerView="auto">
-            <SwiperSlide>
-              <MovieCardSkeleton />
-            </SwiperSlide>
-          </Swiper>
-          <Swiper grabCursor spaceBetween={40} slidesPerView="auto">
             <SwiperSlide>
               <MovieCardSkeleton />
             </SwiperSlide>
           </Swiper>
         </>
       )}
-      <Swiper grabCursor spaceBetween={40} slidesPerView="auto">
-        {movies.map((item) => (
-          <SwiperSlide key={item.id}>
-            <MovieCard item={item} />
-          </SwiperSlide>
-        ))}
-      </Swiper>
+      {!isLoading && 
+        <Swiper grabCursor spaceBetween={40} slidesPerView="auto">
+          {movies.map((item) => (
+            <SwiperSlide key={item.id}>
+              <MovieCard item={item} />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      }
     </div>
   );
 };

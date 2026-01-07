@@ -1,15 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const LoadingSkeleton = (props) => {
+const LoadingSkeleton = ({width, height, radius, className}) => {
   return (
-    <div className={`skeleton ${props.className}`}>
-      style=
-      {{
-        width: props.width || "100%",
-        height: props.height || "100%",
-        borderRadius: props.radius || "0",
-      }}
+    <div className={`skeleton ${className}`} style={{width, height, borderRadius: radius}}>
     </div>
   );
 };
