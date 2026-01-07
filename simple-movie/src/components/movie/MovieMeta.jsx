@@ -43,7 +43,7 @@ const MovieMeta = ({ type = 'videos' }) => {
           <div className="py-10">
             <div className="grid grid-col gap-10">
               {results.slice(0, 2).map((video) => (
-                <div key={video.id} className="">
+                <div key={video.id}>
                   <h3 className="text-xl font-medium bg-secondary p-3 mb-5 inline-block">
                     {video.name}
                   </h3>

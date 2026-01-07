@@ -5,7 +5,6 @@ import { tmdbAPI } from "@/apiConfig/config";
 import PropTypes from "prop-types";
 import { withErrorBoundary } from "react-error-boundary";
 import LoadingSkeleton from "@/components/loading/LoadingSkeleton";
-
 const MovieCard = ({ item }) => {
   const { title, poster_path, release_date, vote_average, id } = item;
   const navigate = useNavigate();

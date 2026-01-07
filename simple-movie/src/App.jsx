@@ -5,7 +5,8 @@ import Banner from "@/components/banner/Banner";
 import { lazy, Suspense } from "react";
 
 const HomePage = lazy(() => import("@/pages/HomePage"));
-const MoviePage = lazy(() => import("@/pages/MoviePage"));
+// const MoviePage = lazy(() => import("@/pages/MoviePage"));
+const MoviePageV2 = lazy(() => import("@/pages/MoviePageV2"));
 const MovieDetailPage = lazy(() => import("@/pages/MovieDetailPage"));
 
 const App = () => {
@@ -22,7 +23,7 @@ const App = () => {
             </>
           }
         ></Route>
-        <Route path="/movies" element={<MoviePage />}></Route>
+        <Route path="/movies" element={<MoviePageV2 />}></Route>
         <Route path="/movies/:movieId" element={<MovieDetailPage />}></Route>
       </Route>
     </Routes>

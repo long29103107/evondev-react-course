@@ -1,21 +1,19 @@
 import React from "react";
-import useSWR from "swr";
+import useSWRInfinite from 'swr/infinite'
 import { fetcher, tmdbAPI } from "@/apiConfig/config";
 import MovieCard from "@/components/movie/MovieCard";
 import { useState, useMemo, useEffect } from "react";
 import useDebounce from "@/hooks/useDebouce";
-import ReactPaginate from "react-paginate";
 import { MovieCardSkeleton } from "@/components/movie/MovieCard";
+import Button from "@/components/button/Button";
 
 const itemsPerPage = 20;
 
 
-const MoviePage = () => {
+const MoviePageV2 = () => {
   const [nextPage, setNextPage] = useState(1);
   const [filter, setFilter] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
-  const [itemOffset, setItemOffset] = useState(0);
-  const [pageCount, setPageCount] = useState(0);
 
   const filterDebounce = useDebounce(filter, 500);
 
@@ -31,21 +29,10 @@ const MoviePage = () => {
     return tmdbAPI.getMovieSearch(searchTerm, nextPage);
   }, [searchTerm, nextPage]);
 
-  const { data, isLoading } = useSWR(url, fetcher);
-
-  useEffect(() => {
-    if (!data || !data.total_results) return;
-    setPageCount(Math.ceil(data.total_results / itemsPerPage));
-  }, [itemOffset, data]);
-
-  if (!data || !data.total_results) return;
-  const movies = data.results || [];
-
-  const handlePageClick = (event) => {
-    const newOffset = (event.selected * itemsPerPage) % data.total_results;
-    setItemOffset(newOffset);
-    setNextPage(event.selected + 1);
-  };
+  const { data, isLoading, size, setSize} = useSWRInfinite((index) => url.replace('page=1', `page=${index + 1}`), fetcher);
+  const isEmpty = data?.[0]?.results.length === 0;
+  const isReachingEnd = isEmpty || (data && data[data.length - 1]?.results.length < itemsPerPage);
+  const movies = data ? data.reduce((acc, curr) => [...acc, ...curr.results], []) : [];
 
   const handleFilterChange = (e) => {
     setFilter(e.target.value);
@@ -112,22 +99,12 @@ const MoviePage = () => {
           ))}
         </div>
       )}
-      
-      <div className="mt-10">
-        <ReactPaginate
-          breakLabel="..."
-          nextLabel="Next >"
-          onPageChange={handlePageClick}
-          pageRangeDisplayed={5}
-          pageCount={pageCount}
-          previousLabel="< Previous"
-          renderOnZeroPageCount={null}
-          className="pagination"
-          forcePage={nextPage - 1}
-        />
-      </div>
+
+      {!isReachingEnd && <div className="mt-10 text-center">
+          <Button onclick={() => !isReachingEnd && setSize(size + 1)}>Load more</Button>
+      </div>}
     </div>
   );
 };
 
-export default MoviePage;
+export default MoviePageV2;
