@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { useController } from "react-hook-form";
 import PropTypes from "prop-types";
+import EyeOpenIcon from "@/components/icon/IconEyeOpen";
 
 const InputStyles = styled.div`
   position: relative;
@@ -31,8 +32,8 @@ const InputStyles = styled.div`
     cursor: pointer;
   }
   input:focus {
-    background-color: ${props => props.theme.white};
-    border-color: ${props => props.theme.primary};
+    background-color: ${(props) => props.theme.white};
+    border-color: ${(props) => props.theme.primary};
     outline: none;
   }
 `;
@@ -43,7 +44,14 @@ const InputStyles = styled.div`
  * @param {*} control - control from react hook form
  * @returns Input
  */
-const Input = ({ name = "", type = "text", children, control, hasIcon = false, ...props }) => {
+const Input = ({
+  name = "",
+  type = "text",
+  children,
+  control,
+  hasIcon = false,
+  ...props
+}) => {
   const { field } = useController({
     control,
     name,
