@@ -1,0 +1,12 @@
+@import "./tailwind.css";
+@import "./theme.css";
+
+/* Font classes */
+body {
+  font-family: "DM Sans", sans-serif;
+}
+
+button,
+a {
+  cursor: pointer;
+}
