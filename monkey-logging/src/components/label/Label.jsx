@@ -1,7 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
 
-
 const LabelStyled = styled.label`
   color: ${props => props.theme.grayDark};
   font-weight: 600;

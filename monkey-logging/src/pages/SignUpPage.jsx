@@ -1,6 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
-import Label from '@/components/label'
+import { Label } from '@/components/label'
+import { Input } from '@/components/input'
+import { useForm } from 'react-hook-form'
 
 const SignUpPageStyled = styled.div`
     min-height: 100vh;
@@ -25,29 +27,6 @@ const SignUpPageStyled = styled.div`
       row-gap: 20px;
     }
 
-    .input {
-      width: 100%;
-      padding: 20px;
-      background-color: ${props => props.theme.grayLight};
-      border-radius: 8px;
-      transition: all 0.2s linear;
-      border: 1px solid transparent;
-    }
-
-    .input:focus {
-      background-color: ${props => props.theme.white};
-      border-color: ${props => props.theme.primary};
-      outline: none;
-    }
-
-    .input::-webkit-input-placeholder {
-      color: #84878b;
-    }
-
-    .input::-moz-placeholder {
-      color: #84878b;
-    }
-
     .form {
       max-width: 800px;
       margin: 0 auto;
@@ -55,22 +34,20 @@ const SignUpPageStyled = styled.div`
 `
 
 const SignUpPage = () => {
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(e.target.fullName.value);
-  }
+  const { control } = useForm();
 
-  
   return (
     <SignUpPageStyled>
       <div className="container">
         <img srcSet="/logo.png 2x" alt="monkey-logo" className="logo"/>
         <h1 className="heading">Monkey Blogging</h1>
-        <form className="form" onSubmit={handleSubmit}>
+        <form className="form">
           <div className="field">
             <Label htmlFor="fullName">Full Name</Label>
-            <input type="text" id="fullName" name="fullName" className="input" placeholder="Enter your fullname" />
-          </div>
+            <Input id="fullName" type="text" name="fullName" 
+              placeholder="Enter your fullname" 
+              control={control} />
+            </div>
         </form>
       </div>
     </SignUpPageStyled>
