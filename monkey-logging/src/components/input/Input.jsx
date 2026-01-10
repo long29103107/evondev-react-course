@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import { useController } from "react-hook-form";
 import PropTypes from "prop-types";
-import EyeOpenIcon from "@/components/icon/IconEyeOpen";
 
 const InputStyles = styled.div`
   position: relative;
@@ -10,7 +9,7 @@ const InputStyles = styled.div`
   input {
     width: 100%;
     padding: ${(props) =>
-      props.hasIcon ? "16px 60px 16px 20px" : "16px 20px"};
+      props.children ? "16px 60px 16px 20px" : "16px 20px"};
     background-color: transparent;
     border: 1px solid ${(props) => props.theme.grayf1};
     border-radius: 8px;
@@ -18,12 +17,15 @@ const InputStyles = styled.div`
     color: ${(props) => props.theme.black};
     font-size: 14px;
   }
+  
   input::-webkit-input-placeholder {
     color: #b2b3bd;
   }
+  
   input::-moz-input-placeholder {
     color: #b2b3bd;
   }
+
   .input-icon {
     position: absolute;
     right: 20px;
@@ -31,6 +33,7 @@ const InputStyles = styled.div`
     transform: translateY(-50%);
     cursor: pointer;
   }
+  
   input:focus {
     background-color: ${(props) => props.theme.white};
     border-color: ${(props) => props.theme.primary};
@@ -49,7 +52,6 @@ const Input = ({
   type = "text",
   children,
   control,
-  hasIcon = false,
   ...props
 }) => {
   const { field } = useController({
@@ -57,12 +59,13 @@ const Input = ({
     name,
     defaultValue: "",
   });
-  return (
-    <InputStyles hasIcon={hasIcon}>
+
+  return (      
+    <InputStyles >
       <input id={name} type={type} {...field} {...props} />
-      {children ? <div className="input-icon">{children}</div> : null}
+      {children}
     </InputStyles>
-  );
+  );  
 };
 Input.propTypes = {
   // value: PropTypes.string

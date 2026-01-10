@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Label } from "@/components/label";
 import { Input } from "@/components/input";
 import { useForm } from "react-hook-form";
-import IconEyeOpen from "@/components/icon/IconEyeOpen";
+import { IconEyeOpen } from "@/components/icon";
 
 const SignUpPageStyled = styled.div`
   min-height: 100vh;
@@ -37,9 +37,7 @@ const SignUpPageStyled = styled.div`
 const SignUpPage = () => {
   const {
     control,
-    handleSubmit, //,
-    // formState: { errors, isValid, isSubmitting },
-    // watch,
+    handleSubmit
   } = useForm();
 
   const handleSignUp = (values) => {
@@ -57,11 +55,9 @@ const SignUpPage = () => {
             <Input
               type="text"
               name="fullName"
-              placeholder="Enter your fullname"
+              placeholder="Enter your full name"
               control={control}
-              hasIcon={true}
             />
-            <IconEyeOpen className="icon-eye" />
           </div>
         </form>
       </div>
