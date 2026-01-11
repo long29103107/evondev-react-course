@@ -1,6 +1,19 @@
 @import "./tailwind.css";
 @import "./theme.css";
 
+*,
+* *::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
 /* Font classes */
 body {
   font-family: "DM Sans", sans-serif;
@@ -12,7 +25,12 @@ label {
   cursor: pointer;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   overflow-wrap: break-word;
 }
 
