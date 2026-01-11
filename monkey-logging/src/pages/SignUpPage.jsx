@@ -1,10 +1,18 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Label } from "@/components/label";
 import { Input } from "@/components/input";
 import { useForm } from "react-hook-form";
 import { IconEyeOpen, IconEyeClose } from "@/components/icon";
 import { Field } from "@/components/field";
+import { Button } from "@/components/button";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { toast } from "react-toastify";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { auth, db } from "@/firebase/firebase-config";
+import { useNavigate } from "react-router-dom";
+import { collection, setDoc, doc } from "firebase/firestore";
 
 const SignUpPageStyled = styled.div`
   min-height: 100vh;
@@ -28,14 +36,74 @@ const SignUpPageStyled = styled.div`
   }
 `;
 
+const schema = yup.object().shape({
+  fullName: yup.string().required("Please enter your full name"),
+  email: yup
+    .string()
+    .email("Please enter a valid email address")
+    .required("Please enter your email address"),
+  password: yup
+    .string()
+    .required("Please enter your password")
+    .min(8, "Password must be at least 8 characters long"),
+});
+
 const SignUpPage = () => {
+  const navigate = useNavigate();
+
   const {
     control,
-    handleSubmit
-  } = useForm();
+    handleSubmit,
+    formState: { isSubmitting, isValid, errors },
+  } = useForm({
+    mode: "onChange",
+    resolver: yupResolver(schema),
+    defaultValues: {
+      fullName: "",
+      email: "",
+      password: "",
+    },
+  });
 
-  const handleSignUp = (values) => {
-    console.log(values);
+  useEffect(() => {
+    const arrErrors = Object.values(errors);
+    if (arrErrors.length > 0) {
+      toast.error(arrErrors[0].message, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+  }, [errors]);
+
+  const handleSignUp = async (values) => {
+    if (!isValid) return;
+
+    const user = await createUserWithEmailAndPassword(
+      auth,
+      values.email,
+      values.password
+    );
+    console.log("Sign up user", user);
+
+    await updateProfile(auth.currentUser, {
+      displayName: values.fullName,
+    });
+
+    const colRef = collection(db, "users");
+    await setDoc(doc(colRef, user.user.uid), {
+      fullName: values.fullName,
+      email: values.email,
+      password: values.password,
+      createdAt: new Date(),
+    });
+
+    toast.success("Sign up successfully");
+    navigate("/");
   };
 
   const [showPassword, setShowPassword] = useState(false);
@@ -72,11 +140,21 @@ const SignUpPage = () => {
               placeholder="Enter your password"
               control={control}
             >
-              {showPassword 
-               ? <IconEyeOpen onClick={() => setShowPassword(false)} /> 
-               : <IconEyeClose onClick={() => setShowPassword(true)} />}
+              {showPassword ? (
+                <IconEyeOpen onClick={() => setShowPassword(false)} />
+              ) : (
+                <IconEyeClose onClick={() => setShowPassword(true)} />
+              )}
             </Input>
           </Field>
+          <Button
+            type="submit"
+            className="w-full max-w-[300px] mx-auto"
+            isLoading={isSubmitting}
+            disabled={isSubmitting}
+          >
+            Sign Up
+          </Button>
         </form>
       </div>
     </SignUpPageStyled>
