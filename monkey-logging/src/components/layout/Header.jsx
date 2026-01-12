@@ -116,7 +116,7 @@ const Header = () => {
           <div className="search">
             <input
               type="text"
-              placeholder="Search post..."
+              placeholder="Search post ..."
               className="search-input"
             />
             <span className="search-icon">

@@ -1,32 +1,24 @@
-// import { signOut } from "firebase/auth";
-// import { auth } from "@/firebase/firebase-config";
-// import { toast } from "react-toastify";
-// import { useNavigate } from "react-router-dom";
+import Layout from "@/components/layout/Layout";
+import { Toggle } from "@/components/toggle";
+// import HomeBanner from "@/module/home/HomeBanner";
+// import HomeFeature from "@/module/home/HomeFeature";
+// import HomeNewest from "@/module/home/HomeNewest";
+import React from "react";
 import styled from "styled-components";
-import Header from "@/layout/Header";
 
-const HomePageStyles = styled.div`
-  min-height: 100vh;
-`;
+const HomePageStyles = styled.div``;
 
 const HomePage = () => {
   return (
     <HomePageStyles>
-      <Header></Header>
+      <Layout>
+        <Toggle></Toggle>
+        {/* <HomeBanner></HomeBanner> */}
+        {/* <HomeFeature></HomeFeature> */}
+        {/* <HomeNewest></HomeNewest> */}
+      </Layout>
     </HomePageStyles>
   );
 };
 
 export default HomePage;
-
-// const HomePage = () => {
-//   // const { userInfo } = useAuth();
-//   const navigate = useNavigate();
-//   const handleSignOut = async () => {
-//     await signOut(auth);
-//     toast.success("Sign out successfully");
-//     navigate("/sign-in");
-//   };
-
-//   return <button onClick={handleSignOut}>Sign Out</button>;
-// };
