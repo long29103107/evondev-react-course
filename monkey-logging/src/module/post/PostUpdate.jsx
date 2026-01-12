@@ -1,12 +1,12 @@
-import { Button } from "components/button";
+import { Button } from "@/components/button";
 import { Radio } from "components/checkbox";
-import { Dropdown } from "components/dropdown";
-import { Field, FieldCheckboxes } from "components/field";
-import ImageUpload from "components/image/ImageUpload";
-import { Input } from "components/input";
-import { Label } from "components/label";
-import Toggle from "components/toggle/Toggle";
-import { db } from "firebase-app/firebase-config";
+import { Dropdown } from "@/components/dropdown";
+import { Field, FieldCheckboxes } from "@/components/field";
+import ImageUpload from "@/components/image/ImageUpload";
+import { Input } from "@/components/input";
+import { Label } from "@/components/label";
+import Toggle from "@/components/toggle/Toggle";
+import { db } from "@/firebase/firebase-config";
 import {
   collection,
   doc,
@@ -16,8 +16,8 @@ import {
   updateDoc,
   where,
 } from "firebase/firestore";
-import useFirebaseImage from "hooks/useFirebaseImage";
-import DashboardHeading from "module/dashboard/DashboardHeading";
+import useFirebaseImage from "@/hooks/useFirebaseImage";
+import DashboardHeading from "@/module/dashboard/DashboardHeading";
 import React, { useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSearchParams } from "react-router-dom";

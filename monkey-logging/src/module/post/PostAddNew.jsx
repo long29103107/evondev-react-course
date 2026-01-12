@@ -6,14 +6,14 @@ import ImageUpload from "@/components/image/ImageUpload";
 import { useForm } from "react-hook-form";
 import { useAuth } from "@/contexts/auth-context";
 import { toast } from "react-toastify";
-import { Radio } from "components/checkbox";
+import { Radio } from "@/components/checkbox";
 import { postStatus, userRole } from "@/utils/constants";
-import { Label } from "components/label";
-import { Input } from "components/input";
-import { Field, FieldCheckboxes } from "components/field";
-import { Dropdown } from "components/dropdown";
+import { Label } from "@/components/label";
+import { Input } from "@/components/input";
+import { Field, FieldCheckboxes } from "@/components/field";
+import { Dropdown } from "@/components/dropdown";
 import { db } from "@/firebase/firebase-config";
-import { Button } from "components/button";
+import { Button } from "@/components/button";
 import {
   addDoc,
   collection,
