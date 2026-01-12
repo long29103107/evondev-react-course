@@ -1,3 +1,15 @@
 @theme {
-  
+  --color-primary: #1DC071;
+  --color-secondary: #A4D96C;
+  --color-gray-dark: #292D32;
+  --color-gray-light: #E7ECF3;
+  --color-tertiary: #3A1097;
+  --color-accent: #00D1ED;
+  --color-gray-f3: #F3EDFF;
+  --color-gray-6b: #6B6B6B;
+  --color-gray-23: #232323;
+  --color-gray-4b: #4B5264;
+  --color-gray-f1: #F1F1F3;
+  --color-gray-80: #808191;
+  --color-black: #171725;
 }

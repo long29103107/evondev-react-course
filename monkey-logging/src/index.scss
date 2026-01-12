@@ -1,42 +1,20 @@
 @import "./tailwind.css";
 @import "./theme.css";
 
-*,
-* *::before,
-*::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+@layer base {
+  html {
+    font-size: 16px;
+  }
 
-html,
-body {
-  height: 100%;
-}
+  body {
+    font-family: "Poppins", sans-serif;
+    line-height: 1.5;
+    background-color: #fff;
+  }
 
-/* Font classes */
-body {
-  font-family: "DM Sans", sans-serif;
-}
-
-button,
-a,
-label {
-  cursor: pointer;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  overflow-wrap: break-word;
-}
-
-body {
-  font-family: "Poppins", sans-serif;
-  font-size: 16px;
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
 }
 
 .container {

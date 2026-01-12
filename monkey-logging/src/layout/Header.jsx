@@ -1,6 +1,11 @@
 import styled from "styled-components";
 import { Button } from "@/components/button";
 import { NavLink } from "react-router-dom";
+import useAuth from "@/hooks/useAuth";
+import { signOut } from "firebase/auth";
+import { auth } from "@/firebase/firebase-config";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const HeaderStyles = styled.div`
   color: ${(props) => props.theme.white};
@@ -76,7 +81,21 @@ const menuLinks = [
   },
 ];
 
+const getLastName = (name) => {
+  if (!name) return "";
+  const length = name.split(" ").length;
+  return name.split(" ")[length - 1];
+}
+
 const Header = () => {
+  const {userInfo} = useAuth();
+  const navigate = useNavigate();
+  const handleSignOut = async () => {
+    await signOut(auth);
+    toast.success("Sign out successfully");
+    navigate("/sign-in");
+  }
+
   return (
     <HeaderStyles>
       <div className="container">
@@ -132,11 +151,18 @@ const Header = () => {
             </span>
           </div>
 
-          <Button width="100px" height="56px">Sign Up</Button>
+          {!userInfo?.email 
+            ? <Button width="100px" height="56px" to="/sign-up">Sign Up</Button> 
+            : <div className="header-auth">
+                <strong>Welcome, </strong>
+                <span className="text-primary">{getLastName(userInfo?.displayName)}</span>
+                  <Button width="100px" height="56px" onClick={handleSignOut}>Sign Out</Button>
+              </div>
+          }
+            </div>
         </div>
-      </div>
     </HeaderStyles>
-  );
-};
-
-export default Header;
+    );
+  };
+  
+  export default Header;

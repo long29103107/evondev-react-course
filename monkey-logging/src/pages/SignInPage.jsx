@@ -53,13 +53,8 @@ const SignInPage = () => {
     const arrErrors = Object.values(errors);
     if (arrErrors.length > 0) {
       toast.error(arrErrors[0]?.message, {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
+        pauseOnHover: false,
+        delay: 0,
       });
     }
   }, [errors]);
@@ -103,14 +98,14 @@ const SignInPage = () => {
           </Input>
         </Field>
 
-        <div className="have-account">
+        <div className="have-account  mb-4">
           <span>You have no account yet?</span>
           <NavLink to={"/sign-up"}>Sign Up</NavLink>
         </div>
 
         <Button
           type="submit"
-          className="w-full max-w-[300px] mx-auto"
+          className="w-full max-w-[300px] m-auto"
           isLoading={isSubmitting}
           disabled={isSubmitting}
         >
@@ -118,7 +113,7 @@ const SignInPage = () => {
         </Button>
       </form>
     </AuthenticationPage>
-  );
+  );  
 };
 
 export default SignInPage;

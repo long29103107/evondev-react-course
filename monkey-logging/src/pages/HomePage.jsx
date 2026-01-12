@@ -7,7 +7,6 @@ import Header from "@/layout/Header";
 
 const HomePageStyles = styled.div`
   min-height: 100vh;
-  padding: 40px;
 `;
 
 const HomePage = () => {
