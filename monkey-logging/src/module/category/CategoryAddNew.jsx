@@ -1,18 +1,18 @@
-import { Button } from "components/button";
-import { Radio } from "components/checkbox";
-import { Field, FieldCheckboxes } from "components/field";
-import { Input } from "components/input";
-import { Label } from "components/label";
-import { useAuth } from "contexts/auth-context";
-import { db } from "firebase-app/firebase-config";
+import { Button } from "@/components/button";
+import { Radio } from "@/components/checkbox";
+import { Field, FieldCheckboxes } from "@/components/field";
+import { Input } from "@/components/input";
+import { Label } from "@/components/label";
+import { useAuth } from "@/contexts/auth-context";
+import { db } from "@/firebase-app/firebase-config";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
-import DashboardHeading from "module/dashboard/DashboardHeading";
+import DashboardHeading from "@/module/dashboard/DashboardHeading";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import slugify from "slugify";
 import Swal from "sweetalert2";
-import { categoryStatus, userRole } from "utils/constants";
+import { categoryStatus, userRole } from "@/utils/constants";
 
 const CategoryAddNew = () => {
   const {

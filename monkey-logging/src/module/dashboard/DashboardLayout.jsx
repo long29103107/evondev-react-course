@@ -1,5 +1,5 @@
-import { useAuth } from "contexts/auth-context";
-import PageNotFound from "pages/PageNotFound";
+import { useAuth } from "@/contexts/auth-context";
+import PageNotFound from "@/pages/NotFoundPage";
 import React from "react";
 import { Outlet } from "react-router-dom";
 import styled from "styled-components";

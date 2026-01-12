@@ -1,9 +1,9 @@
-import { ActionDelete, ActionEdit } from "components/action";
-import { Button } from "components/button";
-import { LabelStatus } from "components/label";
-import { Table } from "components/table";
-import { ActionView } from "drafts/action";
-import { db } from "firebase-app/firebase-config";
+import { ActionDelete, ActionEdit } from "@/components/action";
+import { Button } from "@/components/button";
+import { LabelStatus } from "@/components/label";
+import { Table } from "@/components/table";
+import { ActionView } from "@/components/action";
+import { db } from "@/firebase-app/firebase-config";
 import {
   collection,
   deleteDoc,
@@ -15,19 +15,19 @@ import {
   startAfter,
   where,
 } from "firebase/firestore";
-import DashboardHeading from "module/dashboard/DashboardHeading";
+import DashboardHeading from "@/module/dashboard/DashboardHeading";
 import React, { useEffect, useState } from "react";
-import { categoryStatus, userRole } from "utils/constants";
+import { categoryStatus, userRole } from "@/utils/constants";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { debounce } from "lodash";
-import { useAuth } from "contexts/auth-context";
+import { useAuth } from "@/contexts/auth-context";
 
 const CATEGORY_PER_PAGE = 10;
 
 const CategoryManage = () => {
-  const [categoryList, setCategoryList] = useState([]);
   const navigate = useNavigate();
+  const [categoryList, setCategoryList] = useState([]);
   const [filter, setFilter] = useState(undefined);
   const [lastDoc, setLastDoc] = useState();
   const [total, setTotal] = useState(0);

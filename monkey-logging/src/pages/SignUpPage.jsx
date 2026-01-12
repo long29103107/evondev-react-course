@@ -9,7 +9,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { auth, db } from "@/firebase/firebase-config";
+import { auth, db } from "@/firebase-app/firebase-config";
 import { useNavigate, NavLink } from "react-router-dom";
 import { collection, setDoc, doc } from "firebase/firestore";
 import AuthenticationPage from "@/pages/AuthenticationPage";

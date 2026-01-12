@@ -1,10 +1,10 @@
 import React from "react";
 import slugify from "slugify";
 import styled from "styled-components";
-import PostCategory from "./PostCategory";
-import PostImage from "./PostImage";
-import PostMeta from "./PostMeta";
-import PostTitle from "./PostTitle";
+import PostCategory from "../PostCategory";
+import PostImage from "../PostImage";
+import PostMeta from "../PostMeta";
+import PostTitle from "../PostTitle";
 const PostNewestLargeStyles = styled.div`
   .post {
     &-image {

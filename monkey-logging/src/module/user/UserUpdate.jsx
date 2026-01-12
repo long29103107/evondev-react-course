@@ -1,21 +1,21 @@
-import { Button } from "components/button";
-import { Radio } from "components/checkbox";
-import { Field, FieldCheckboxes } from "components/field";
-import ImageUpload from "components/image/ImageUpload";
-import { Input } from "components/input";
-import { Label } from "components/label";
-import { Textarea } from "components/textarea";
-import { useAuth } from "contexts/auth-context";
-import { db } from "firebase-app/firebase-config";
+import { Button } from "@/components/button";
+import { Radio } from "@/components/checkbox";
+import { Field, FieldCheckboxes } from "@/components/field";
+import ImageUpload from "@/components/image/ImageUpload";
+import { Input } from "@/components/input";
+import { Label } from "@/components/label";
+import { Textarea } from "@/components/textarea";
+import { useAuth } from "@/contexts/auth-context";
+import { db } from "@/firebase-app/firebase-config";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
-import useFirebaseImage from "hooks/useFirebaseImage";
-import DashboardHeading from "module/dashboard/DashboardHeading";
+import useFirebaseImage from "@/hooks/useFirebaseImage";
+import DashboardHeading from "@/module/dashboard/DashboardHeading";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
-import { userRole, userStatus } from "utils/constants";
+import { userRole, userStatus } from "@/utils/constants";
 
 const UserUpdate = () => {
   const {

@@ -1,5 +1,5 @@
 import Heading from "@/components/layout/Heading";
-import { db } from "@/firebase/firebase-config";
+import { db } from "@/firebase-app/firebase-config";
 import {
   collection,
   limit,

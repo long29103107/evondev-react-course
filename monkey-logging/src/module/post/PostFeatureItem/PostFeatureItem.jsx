@@ -1,12 +1,10 @@
 import styled from "styled-components";
 import slugify from "slugify";
 import React from "react";
-import PostTitle from "./PostTitle";
-import PostMeta from "./PostMeta";
-import PostImage from "./PostImage";
-import PostCategory from "./PostCategory";
-import { withErrorBoundary } from "react-error-boundary";
-
+import PostTitle from "../PostTitle";
+import PostMeta from "../PostMeta";
+import PostImage from "../PostImage";
+import PostCategory from "../PostCategory";
 const PostFeatureItemStyles = styled.div`
   width: 100%;
   border-radius: 16px;
@@ -81,11 +79,5 @@ const PostFeatureItem = ({ data }) => {
     </PostFeatureItemStyles>
   );
 };
-// Example of error boundary
-export default withErrorBoundary(PostFeatureItem, {
-  FallbackComponent: (
-    <p className="p-3 text-red-500 bg-red-100">
-      Look like this component error
-    </p>
-  ),
-});
+
+export default PostFeatureItem;

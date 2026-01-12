@@ -3,7 +3,7 @@ import { Button } from "@/components/button";
 import { NavLink } from "react-router-dom";
 import useAuth from "@/hooks/useAuth";
 import { signOut } from "firebase/auth";
-import { auth } from "@/firebase/firebase-config";
+import { auth } from "@/firebase-app/firebase-config";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 

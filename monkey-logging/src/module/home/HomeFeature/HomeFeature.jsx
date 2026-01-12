@@ -1,5 +1,5 @@
 import Heading from "@/components/layout/Heading";
-import { db } from "@/firebase/firebase-config";
+import { db } from "@/firebase-app/firebase-config";
 import {
   collection,
   limit,
@@ -9,7 +9,6 @@ import {
 } from "firebase/firestore";
 import PostFeatureItem from "@/module/post/PostFeatureItem";
 import React, { useEffect, useState } from "react";
-// import { withErrorBoundary } from "react-error-boundary";
 
 import styled from "styled-components";
 const HomeFeatureStyles = styled.div``;
@@ -33,7 +32,7 @@ const HomeFeature = () => {
         });
       });
       setPosts(results);
-    });
+    },);
   }, []);
   if (posts.length <= 0) return null;
   return (
@@ -51,12 +50,3 @@ const HomeFeature = () => {
 };
 
 export default HomeFeature;
-
-// // Example of error boundary
-// export default withErrorBoundary(HomeFeature, {
-//   FallbackComponent: (
-//     <p className="p-3 text-red-500 bg-red-100">
-//       Look like this component error
-//     </p>
-//   ),
-// });

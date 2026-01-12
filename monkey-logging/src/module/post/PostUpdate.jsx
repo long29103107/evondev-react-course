@@ -1,12 +1,12 @@
 import { Button } from "@/components/button";
-import { Radio } from "components/checkbox";
+import { Radio } from "@/components/checkbox";
 import { Dropdown } from "@/components/dropdown";
 import { Field, FieldCheckboxes } from "@/components/field";
 import ImageUpload from "@/components/image/ImageUpload";
 import { Input } from "@/components/input";
 import { Label } from "@/components/label";
 import Toggle from "@/components/toggle/Toggle";
-import { db } from "@/firebase/firebase-config";
+import { db } from "@/firebase-app/firebase-config";
 import {
   collection,
   doc,
@@ -21,7 +21,7 @@ import DashboardHeading from "@/module/dashboard/DashboardHeading";
 import React, { useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSearchParams } from "react-router-dom";
-import { postStatus, userRole } from "utils/constants";
+import { postStatus, userRole } from "@/utils/constants";
 import ReactQuill, { Quill } from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { toast } from "react-toastify";
@@ -29,7 +29,7 @@ import ImageUploader from "quill-image-uploader";
 import axios from "axios";
 import { imgbbAPI } from "config/apiConfig";
 import slugify from "slugify";
-import { useAuth } from "contexts/auth-context";
+import { useAuth } from "@/contexts/auth-context";
 import Swal from "sweetalert2";
 Quill.register("modules/imageUploader", ImageUploader);
 

@@ -11,7 +11,7 @@ import { Button } from "@/components/button";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "@/firebase/firebase-config";
+import { auth } from "@/firebase-app/firebase-config";
 import { useNavigate, NavLink } from "react-router-dom";
 
 const schema = yup.object().shape({

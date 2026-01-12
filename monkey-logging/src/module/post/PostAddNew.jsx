@@ -12,7 +12,7 @@ import { Label } from "@/components/label";
 import { Input } from "@/components/input";
 import { Field, FieldCheckboxes } from "@/components/field";
 import { Dropdown } from "@/components/dropdown";
-import { db } from "@/firebase/firebase-config";
+import { db } from "@/firebase-app/firebase-config";
 import { Button } from "@/components/button";
 import {
   addDoc,
@@ -24,7 +24,7 @@ import {
   serverTimestamp,
   where,
 } from "firebase/firestore";
-import DashboardHeading from "module/dashboard/DashboardHeading";
+import DashboardHeading from "@/module/dashboard/DashboardHeading";
 import Swal from "sweetalert2";
 
 const PostAddNew = () => {
