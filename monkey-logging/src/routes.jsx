@@ -4,6 +4,7 @@ import { lazy } from "react";
 const HomePage = lazy(() => import("@/pages/HomePage"));
 const SignUpPage = lazy(() => import("@/pages/SignUpPage"));
 const SignInPage = lazy(() => import("@/pages/SignInPage"));
+const NotFoundPage = lazy(() => import("@/pages/NotFoundPage"));
 
 const AppRoutes = () => {
   const routes = useRoutes([
@@ -14,24 +15,19 @@ const AppRoutes = () => {
     },
     {
       path: "/home",
-      element: <HomePage />,
-      handle: {
-        title: "Home | Monkey Blogging",
-      },
+      element: <HomePage />
     },
     {
       path: "/sign-up",
-      element: <SignUpPage />,
-      handle: {
-        title: "Sign Up | Monkey Blogging",
-      },
+      element: <SignUpPage />
     },
     {
       path: "/sign-in",
-      element: <SignInPage />,
-      handle: {
-        title: "Sign In | Monkey Blogging",
-      },
+      element: <SignInPage />
+    },
+    {
+      path: "*",
+      element: <NotFoundPage />
     },
   ]);
 

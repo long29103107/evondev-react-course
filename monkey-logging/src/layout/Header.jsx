@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Button } from "@/components/button";
+import { NavLink } from "react-router-dom";
 
 const HeaderStyles = styled.div`
   color: ${(props) => props.theme.white};
@@ -22,6 +23,7 @@ const HeaderStyles = styled.div`
     margin-left: 40px;
     gap: 20px;
     list-style: none;
+    font-weight: 500;
   }
 
   .search {
@@ -35,11 +37,17 @@ const HeaderStyles = styled.div`
     display: flex;
     align-items: center;
     position: relative;
+    margin-right: 20px;
+    height: 56px;
   }
 
   .search-input {
     flex: 1;
     padding-right: 45px;
+  }
+
+  .search-input:focus {
+    outline: none;
   }
 
   .search-icon {
@@ -52,15 +60,18 @@ const HeaderStyles = styled.div`
 
 const menuLinks = [
   {
-    url: "/#",
+    id: 1,
+    url: "/home",
     title: "Home",
   },
   {
-    url: "/#",
+    id: 2,
+    url: "/blog",
     title: "Blog",
   },
   {
-    url: "/#",
+    id: 3,
+    url: "/contact",
     title: "Contact",
   },
 ];
@@ -70,15 +81,15 @@ const Header = () => {
     <HeaderStyles>
       <div className="container">
         <div className="header-main">
-          <a href="/">
+          <NavLink to={"/"}>
             <img srcSet="/logo.png 2x" alt="monkey-logo" className="logo" />
-          </a>
+          </NavLink>
           <ul className="menu">
             {menuLinks.map((link) => (
-              <li key={link.url} className="menu-item">
-                <a href={link.url} className="menu-link">
+              <li key={link.id} className="menu-item">
+                <NavLink to={link.url} className="menu-link">
                   {link.title}
-                </a>
+                </NavLink>
               </li>
             ))}
           </ul>
@@ -121,7 +132,7 @@ const Header = () => {
             </span>
           </div>
 
-          <Button width="100px">Sign Up</Button>
+          <Button width="100px" height="56px">Sign Up</Button>
         </div>
       </div>
     </HeaderStyles>
