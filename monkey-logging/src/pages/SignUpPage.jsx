@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { Label } from "@/components/label";
 import { Input } from "@/components/input";
 import { useForm } from "react-hook-form";
-import { IconEyeOpen, IconEyeClose } from "@/components/icon";
+import { InputPasswordToggle } from "@/components/input";
 import { Field } from "@/components/field";
 import { Button } from "@/components/button";
 import * as yup from "yup";
@@ -78,8 +78,6 @@ const SignUpPage = () => {
     navigate("/");
   };
 
-  const [showPassword, setShowPassword] = useState(false);
-
   useEffect(() => {
     document.title = "Sign Up | Monkey Blogging";
   }, []);
@@ -107,18 +105,7 @@ const SignUpPage = () => {
         </Field>
         <Field>
           <Label htmlFor="password">Password</Label>
-          <Input
-            type={showPassword ? "text" : "password"}
-            name="password"
-            placeholder="Enter your password"
-            control={control}
-          >
-            {showPassword ? (
-              <IconEyeOpen onClick={() => setShowPassword(false)} />
-            ) : (
-              <IconEyeClose onClick={() => setShowPassword(true)} />
-            )}
-          </Input>
+          <InputPasswordToggle control={control}></InputPasswordToggle>
         </Field>
 
         <div className="have-account mb-4">

@@ -2,10 +2,10 @@ import useAuth from "@/hooks/useAuth";
 import AuthenticationPage from "@/pages/AuthenticationPage";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { Label } from "@/components/label";
 import { Input } from "@/components/input";
-import { IconEyeOpen, IconEyeClose } from "@/components/icon";
+import { InputPasswordToggle } from "@/components/input";
 import { Field } from "@/components/field";
 import { Button } from "@/components/button";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -68,8 +68,6 @@ const SignInPage = () => {
     navigate("/");
   };
 
-  const [showPassword, setShowPassword] = useState(false);
-
   return (
     <AuthenticationPage>
       <form className="form" onSubmit={handleSubmit(handleSignIn)}>
@@ -84,18 +82,7 @@ const SignInPage = () => {
         </Field>
         <Field>
           <Label htmlFor="password">Password</Label>
-          <Input
-            type={showPassword ? "text" : "password"}
-            name="password"
-            placeholder="Enter your password"
-            control={control}
-          >
-            {showPassword ? (
-              <IconEyeOpen onClick={() => setShowPassword(false)} />
-            ) : (
-              <IconEyeClose onClick={() => setShowPassword(true)} />
-            )}
-          </Input>
+          <InputPasswordToggle control={control}></InputPasswordToggle>
         </Field>
 
         <div className="have-account  mb-4">
