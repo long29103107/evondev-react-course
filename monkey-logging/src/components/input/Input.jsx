@@ -9,7 +9,7 @@ const InputStyles = styled.div`
   input {
     width: 100%;
     padding: ${(props) =>
-      props.hasIcon ? "16px 60px 16px 20px" : "16px 20px"};
+      props.$hasIcon ? "16px 60px 16px 20px" : "16px 20px"};
     background-color: transparent;
     border: 1px solid ${(props) => props.theme.grayf1};
     border-radius: 8px;
@@ -45,7 +45,7 @@ const Input = ({ name = "", type = "text", children, control, ...props }) => {
     defaultValue: "",
   });
   return (
-    <InputStyles hasIcon={children ? true : false}>
+    <InputStyles $hasIcon={children ? true : false}>
       <input id={name} type={type} {...field} {...props} />
       {children ? <div className="input-icon">{children}</div> : null}
     </InputStyles>

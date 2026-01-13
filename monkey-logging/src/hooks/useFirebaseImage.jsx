@@ -1,4 +1,3 @@
-import { useAuth } from "@/contexts/auth-context";
 import {
   deleteObject,
   getDownloadURL,
@@ -9,6 +8,7 @@ import {
 import { useState } from "react";
 import Swal from "sweetalert2";
 import { userRole } from "@/utils/constants";
+import useAuth from "@/hooks/useAuth";
 
 export default function useFirebaseImage(
   setValue,
@@ -46,7 +46,7 @@ export default function useFirebaseImage(
         }
       },
       (error) => {
-        console.log("Error");
+        console.log("Error", error);
         setImage("");
       },
       () => {

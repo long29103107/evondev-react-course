@@ -4,7 +4,7 @@ import slugify from "slugify";
 import React, { useEffect, useState } from "react";
 import ImageUpload from "@/components/image/ImageUpload";
 import { useForm } from "react-hook-form";
-import { useAuth } from "@/contexts/auth-context";
+import useAuth from "@/hooks/useAuth";
 import { toast } from "react-toastify";
 import { Radio } from "@/components/checkbox";
 import { postStatus, userRole } from "@/utils/constants";
@@ -53,9 +53,9 @@ const PostAddNew = () => {
   const [categories, setCategories] = useState([]);
   const [selectCategory, setSelectCategory] = useState("");
   const [loading, setLoading] = useState(false);
-  useEffect(() => {
+  useEffect(() => async () => {
     async function fetchUserData() {
-      if (!userInfo.email) return;
+      if (!userInfo?.email) return;
       const q = query(
         collection(db, "users"),
         where("email", "==", userInfo.email)
@@ -70,7 +70,7 @@ const PostAddNew = () => {
     }
     fetchUserData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userInfo.email]);
+  }, [userInfo?.email]);
   const addPostHandler = async (values) => {
     if (userInfo?.role !== userRole.ADMIN) {
       Swal.fire("Failed", "You have no right to do this action", "warning");
@@ -99,7 +99,8 @@ const PostAddNew = () => {
       });
       handleResetUpload();
       setSelectCategory({});
-    } catch (error) {
+    } catch ({ message }) {
+      console.log("Error", message);
       setLoading(false);
     } finally {
       setLoading(false);

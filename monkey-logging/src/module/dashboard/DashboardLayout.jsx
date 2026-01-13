@@ -1,6 +1,5 @@
-import { useAuth } from "@/contexts/auth-context";
+import useAuth from "@/hooks/useAuth";
 import PageNotFound from "@/pages/NotFoundPage";
-import React from "react";
 import { Outlet } from "react-router-dom";
 import styled from "styled-components";
 import DashboardHeader from "./DashboardHeader";

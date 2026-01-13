@@ -1,5 +1,5 @@
-import "./tailwind.css";
-import "./index.scss";
+import "./styles/tailwind.css";
+import "./styles/index.scss";
 import App from "@/App.jsx";
 import { BrowserRouter } from "react-router-dom";
 import { createRoot } from "react-dom/client";
