@@ -1,21 +1,21 @@
-import { Button } from "@/components/button";
-import { Radio } from "@/components/checkbox";
-import { Field, FieldCheckboxes } from "@/components/field";
-import ImageUpload from "@/components/image/ImageUpload";
-import { Input } from "@/components/input";
-import { Label } from "@/components/label";
-import DashboardHeading from "@/module/dashboard/DashboardHeading";
-import React from "react";
-import { useForm } from "react-hook-form";
-import { userRole, userStatus } from "@/utils/constants";
-import useFirebaseImage from "@/hooks/useFirebaseImage";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth, db } from "@/firebase-app/firebase-config";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
-import slugify from "slugify";
-import { toast } from "react-toastify";
-import { useAuth } from "@/contexts/auth-context";
-import Swal from "sweetalert2";
+import { Button } from '@/components/button';
+import { Radio } from '@/components/checkbox';
+import { Field, FieldCheckboxes } from '@/components/field';
+import ImageUpload from '@/components/image/ImageUpload';
+import { Input } from '@/components/input';
+import { Label } from '@/components/label';
+import DashboardHeading from '@/module/dashboard/DashboardHeading';
+import React from 'react';
+import { useForm } from 'react-hook-form';
+import { userRole, userStatus } from '@/utils/constants';
+import useFirebaseImage from '@/hooks/useFirebaseImage';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { auth, db } from '@/firebase-app/firebase-config';
+import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
+import slugify from 'slugify';
+import { toast } from 'react-toastify';
+import { useAuth } from '@/contexts/auth-context';
+import Swal from 'sweetalert2';
 
 const UserAddNew = () => {
   const {
@@ -27,41 +27,36 @@ const UserAddNew = () => {
     formState: { isValid, isSubmitting },
     reset,
   } = useForm({
-    mode: "onChange",
+    mode: 'onChange',
     defaultValues: {
-      fullname: "",
-      email: "",
-      password: "",
-      username: "",
-      avatar: "",
+      fullname: '',
+      email: '',
+      password: '',
+      username: '',
+      avatar: '',
       status: userStatus.ACTIVE,
       role: userRole.USER,
       createdAt: new Date(),
     },
   });
-  const {
-    image,
-    handleResetUpload,
-    progress,
-    handleSelectImage,
-    handleDeleteImage,
-  } = useFirebaseImage(setValue, getValues);
+  const { image, handleResetUpload, progress, handleSelectImage, handleDeleteImage } =
+    useFirebaseImage(setValue, getValues);
   const { userInfo } = useAuth();
   const handleCreateUser = async (values) => {
     if (!isValid) return;
     if (userInfo?.role !== userRole.ADMIN) {
-      Swal.fire("Failed", "You have no right to do this action", "warning");
+      Swal.fire('Failed', 'You have no right to do this action', 'warning');
       return;
     }
     try {
       await createUserWithEmailAndPassword(auth, values.email, values.password);
-      await addDoc(collection(db, "users"), {
+      await addDoc(collection(db, 'users'), {
         fullname: values.fullname,
         email: values.email,
         password: values.password,
         username: slugify(values.username || values.fullname, {
           lower: true,
-          replacement: " ",
+          replacement: ' ',
           trim: true,
         }),
         avatar: image,
@@ -69,15 +64,13 @@ const UserAddNew = () => {
         role: Number(values.role),
         createdAt: serverTimestamp(),
       });
-      toast.success(
-        `Create new user with email: ${values.email} successfully!`
-      );
+      toast.success(`Create new user with email: ${values.email} successfully!`);
       reset({
-        fullname: "",
-        email: "",
-        password: "",
-        username: "",
-        avatar: "",
+        fullname: '',
+        email: '',
+        password: '',
+        username: '',
+        avatar: '',
         status: userStatus.ACTIVE,
         role: userRole.USER,
         createdAt: new Date(),
@@ -85,17 +78,14 @@ const UserAddNew = () => {
       handleResetUpload();
     } catch (error) {
       console.log(error);
-      toast.error("Can not create new user");
+      toast.error('Can not create new user');
     }
   };
-  const watchStatus = watch("status");
-  const watchRole = watch("role");
+  const watchStatus = watch('status');
+  const watchRole = watch('role');
   return (
     <div>
-      <DashboardHeading
-        title="New user"
-        desc="Add new user to system"
-      ></DashboardHeading>
+      <DashboardHeading title="New user" desc="Add new user to system" />
       <form onSubmit={handleSubmit(handleCreateUser)}>
         <div className="w-[200px] h-[200px] mx-auto rounded-full mb-10">
           <ImageUpload
@@ -104,24 +94,16 @@ const UserAddNew = () => {
             handleDeleteImage={handleDeleteImage}
             progress={progress}
             image={image}
-          ></ImageUpload>
+          />
         </div>
         <div className="form-layout">
           <Field>
             <Label>Fullname</Label>
-            <Input
-              name="fullname"
-              placeholder="Enter your fullname"
-              control={control}
-            ></Input>
+            <Input name="fullname" placeholder="Enter your fullname" control={control} />
           </Field>
           <Field>
             <Label>Username</Label>
-            <Input
-              name="username"
-              placeholder="Enter your username"
-              control={control}
-            ></Input>
+            <Input name="username" placeholder="Enter your username" control={control} />
           </Field>
         </div>
         <div className="form-layout">
@@ -132,7 +114,7 @@ const UserAddNew = () => {
               placeholder="Enter your email"
               control={control}
               type="email"
-            ></Input>
+            />
           </Field>
           <Field>
             <Label>Password</Label>
@@ -141,7 +123,7 @@ const UserAddNew = () => {
               placeholder="Enter your password"
               control={control}
               type="password"
-            ></Input>
+            />
           </Field>
         </div>
         <div className="form-layout">

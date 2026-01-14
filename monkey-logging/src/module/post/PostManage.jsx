@@ -1,9 +1,9 @@
-import { ActionDelete, ActionEdit, ActionView } from "@/components/action";
-import { Button } from "@/components/button";
-import { LabelStatus } from "@/components/label";
-import { Table } from "@/components/table";
-import { useAuth } from "@/contexts/auth-context";
-import { db } from "@/firebase-app/firebase-config";
+import { ActionDelete, ActionEdit, ActionView } from '@/components/action';
+import { Button } from '@/components/button';
+import { LabelStatus } from '@/components/label';
+import { Table } from '@/components/table';
+import { useAuth } from '@/contexts/auth-context';
+import { db } from '@/firebase-app/firebase-config';
 import {
   collection,
   deleteDoc,
@@ -14,36 +14,31 @@ import {
   query,
   startAfter,
   where,
-} from "firebase/firestore";
-import { debounce } from "lodash";
-import DashboardHeading from "@/module/dashboard/DashboardHeading";
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
-import { postStatus, userRole } from "@/utils/constants";
+} from 'firebase/firestore';
+import { debounce } from 'lodash';
+import DashboardHeading from '@/module/dashboard/DashboardHeading';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
+import { postStatus, userRole } from '@/utils/constants';
 
 const POST_PER_PAGE = 10;
 
 const PostManage = () => {
   const [postList, setPostList] = useState([]);
-  const [filter, setFilter] = useState("");
+  const [filter, setFilter] = useState('');
   const [lastDoc, setLastDoc] = useState();
   const [total, setTotal] = useState(0);
   const navigate = useNavigate();
   const { userInfo } = useAuth();
   useEffect(() => {
     async function fetchData() {
-      const colRef = collection(db, "posts");
+      const colRef = collection(db, 'posts');
       const newRef = filter
-        ? query(
-            colRef,
-            where("title", ">=", filter),
-            where("title", "<=", filter + "utf8")
-          )
+        ? query(colRef, where('title', '>=', filter), where('title', '<=', filter + 'utf8'))
         : query(colRef, limit(POST_PER_PAGE));
       const documentSnapshots = await getDocs(newRef);
-      const lastVisible =
-        documentSnapshots.docs[documentSnapshots.docs.length - 1];
+      const lastVisible = documentSnapshots.docs[documentSnapshots.docs.length - 1];
       onSnapshot(colRef, (snapshot) => {
         setTotal(snapshot.size);
       });
@@ -63,21 +58,21 @@ const PostManage = () => {
     fetchData();
   }, [filter]);
   async function handleDeletePost(postId) {
-    const docRef = doc(db, "posts", postId);
+    const docRef = doc(db, 'posts', postId);
     Swal.fire({
-      title: "Are you sure?",
+      title: 'Are you sure?',
       text: "You won't be able to revert this!",
-      icon: "warning",
+      icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
     }).then(async (result) => {
       if (result.isConfirmed && userInfo?.role === userRole.ADMIN) {
         await deleteDoc(docRef);
-        Swal.fire("Deleted!", "Your post has been deleted.", "success");
+        Swal.fire('Deleted!', 'Your post has been deleted.', 'success');
       } else {
-        Swal.fire("Failed!", "You have no right to delete post", "warning");
+        Swal.fire('Failed!', 'You have no right to delete post', 'warning');
       }
     });
   }
@@ -98,11 +93,7 @@ const PostManage = () => {
     setFilter(e.target.value);
   }, 250);
   const handleLoadMorePost = async () => {
-    const nextRef = query(
-      collection(db, "posts"),
-      startAfter(lastDoc || 0),
-      limit(POST_PER_PAGE)
-    );
+    const nextRef = query(collection(db, 'posts'), startAfter(lastDoc || 0), limit(POST_PER_PAGE));
 
     onSnapshot(nextRef, (snapshot) => {
       let results = [];
@@ -115,18 +106,14 @@ const PostManage = () => {
       setPostList([...postList, ...results]);
     });
     const documentSnapshots = await getDocs(nextRef);
-    const lastVisible =
-      documentSnapshots.docs[documentSnapshots.docs.length - 1];
+    const lastVisible = documentSnapshots.docs[documentSnapshots.docs.length - 1];
     setLastDoc(lastVisible);
   };
   // const { userInfo } = useAuth();
   // if (userInfo.role !== userRole.ADMIN) return null;
   return (
     <div>
-      <DashboardHeading
-        title="All posts"
-        desc="Manage all posts"
-      ></DashboardHeading>
+      <DashboardHeading title="All posts" desc="Manage all posts" />
       <div className="flex justify-end gap-5 mb-10">
         <div className="w-full max-w-[300px]">
           <input
@@ -154,11 +141,11 @@ const PostManage = () => {
               const date = post?.createdAt?.seconds
                 ? new Date(post?.createdAt?.seconds * 1000)
                 : new Date();
-              const formatDate = new Date(date).toLocaleDateString("vi-VI");
+              const formatDate = new Date(date).toLocaleDateString('vi-VI');
 
               return (
                 <tr key={post.id}>
-                  <td>{post.id?.slice(0, 5) + "..."}</td>
+                  <td>{post.id?.slice(0, 5) + '...'}</td>
                   <td className="!pr-[100px]">
                     <div className="flex items-center gap-x-3">
                       <img
@@ -168,9 +155,7 @@ const PostManage = () => {
                       />
                       <div className="flex-1">
                         <h3 className="font-semibold">{post.title}</h3>
-                        <time className="text-sm text-gray-500">
-                          Date: {formatDate}
-                        </time>
+                        <time className="text-sm text-gray-500">Date: {formatDate}</time>
                       </div>
                     </div>
                   </td>
@@ -183,17 +168,11 @@ const PostManage = () => {
                   <td>{renderPostStatus(post.status)}</td>
                   <td>
                     <div className="flex items-center text-gray-500 gap-x-3">
-                      <ActionView
-                        onClick={() => navigate(`/${post.slug}`)}
-                      ></ActionView>
+                      <ActionView onClick={() => navigate(`/${post.slug}`)} />
                       <ActionEdit
-                        onClick={() =>
-                          navigate(`/manage/update-post?id=${post.id}`)
-                        }
-                      ></ActionEdit>
-                      <ActionDelete
-                        onClick={() => handleDeletePost(post.id)}
-                      ></ActionDelete>
+                        onClick={() => navigate(`/manage/update-post?id=${post.id}`)}
+                      />
+                      <ActionDelete onClick={() => handleDeletePost(post.id)} />
                     </div>
                   </td>
                 </tr>

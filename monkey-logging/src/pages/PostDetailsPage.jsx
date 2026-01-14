@@ -1,17 +1,17 @@
-import styled from "styled-components";
-import React, { useEffect, useState } from "react";
-import PostRelated from "@/module/post/PostRelated";
-import PostMeta from "@/module/post/PostMeta";
-import PostImage from "@/module/post/PostImage";
-import PostCategory from "@/module/post/PostCategory";
-import PageNotFound from "@/pages/PageNotFound";
-import Layout from "@/components/layout/Layout";
-import AuthorBox from "@/components/author";
-import { Link, useParams } from "react-router-dom";
-import { db } from "@/firebase-app/firebase-config";
-import { collection, onSnapshot, query, where } from "firebase/firestore";
-import useAuth from "@/hooks/useAuth";
-import { userRole } from "@/utils/constants";
+import styled from 'styled-components';
+import React, { useEffect, useState } from 'react';
+import PostRelated from '@/module/post/PostRelated';
+import PostMeta from '@/module/post/PostMeta';
+import PostImage from '@/module/post/PostImage';
+import PostCategory from '@/module/post/PostCategory';
+import PageNotFound from '@/pages/PageNotFound';
+import Layout from '@/components/layout/Layout';
+import AuthorBox from '@/components/author';
+import { Link, useParams } from 'react-router-dom';
+import { db } from '@/firebase-app/firebase-config';
+import { collection, onSnapshot, query, where } from 'firebase/firestore';
+import useAuth from '@/hooks/useAuth';
+import { userRole } from '@/utils/constants';
 const PostDetailsPageStyles = styled.div`
   padding-bottom: 100px;
   .post {
@@ -105,7 +105,7 @@ const PostDetailsPage = () => {
   useEffect(() => {
     async function fetchData() {
       if (!slug) return;
-      const colRef = query(collection(db, "posts"), where("slug", "==", slug));
+      const colRef = query(collection(db, 'posts'), where('slug', '==', slug));
       onSnapshot(colRef, (snapshot) => {
         snapshot.forEach((doc) => {
           doc.data() &&
@@ -119,10 +119,10 @@ const PostDetailsPage = () => {
     fetchData();
   }, [slug]);
   useEffect(() => {
-    document.body.scrollIntoView({ behavior: "smooth", block: "start" });
+    document.body.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }, [slug]);
   const { userInfo } = useAuth();
-  if (!slug) return <PageNotFound></PageNotFound>;
+  if (!slug) return <PageNotFound />;
   if (!postInfo.title) return null;
   const { user } = postInfo;
   return (
@@ -130,16 +130,13 @@ const PostDetailsPage = () => {
       <Layout>
         <div className="container">
           <div className="post-header">
-            <PostImage
-              url={postInfo.image}
-              className="post-feature"
-            ></PostImage>
+            <PostImage url={postInfo.image} className="post-feature" />
             <div className="post-info">
               <PostCategory className="mb-6" to={postInfo.category?.slug}>
                 {postInfo.category?.name}
               </PostCategory>
               <h1 className="post-heading">{postInfo.title}</h1>
-              <PostMeta></PostMeta>
+              <PostMeta />
               {/* Check if user role is ADMIN then can edit the post */}
               {userInfo?.role === userRole.ADMIN && (
                 <Link
@@ -156,12 +153,12 @@ const PostDetailsPage = () => {
               className="entry-content"
               // Prevent XSS Attack recommen from React Docs
               dangerouslySetInnerHTML={{
-                __html: postInfo.content || "",
+                __html: postInfo.content || '',
               }}
-            ></div>
-            <AuthorBox userId={user.id}></AuthorBox>
+            />
+            <AuthorBox userId={user.id} />
           </div>
-          <PostRelated categoryId={postInfo?.category?.id}></PostRelated>
+          <PostRelated categoryId={postInfo?.category?.id} />
         </div>
       </Layout>
     </PostDetailsPageStyles>

@@ -1,5 +1,5 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 const SpinnerStyles = styled.div`
   width: ${(props) => props.$size};
   height: ${(props) => props.$size};
@@ -15,8 +15,8 @@ const SpinnerStyles = styled.div`
     }
   }
 `;
-const LoadingSpinner = ({ size = "40px", borderSize = "5px" }) => {
-  return <SpinnerStyles $size={size} $borderSize={borderSize}></SpinnerStyles>;
+const LoadingSpinner = ({ size = '40px', borderSize = '5px' }) => {
+  return <SpinnerStyles $size={size} $borderSize={borderSize} />;
 };
 
 export default LoadingSpinner;

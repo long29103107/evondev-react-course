@@ -1,12 +1,12 @@
-import React, { Fragment } from "react";
-import PropTypes from "prop-types";
+import React, { Fragment } from 'react';
+import PropTypes from 'prop-types';
 
 const ImageUpload = (props) => {
   const {
     name,
-    className = "",
+    className = '',
     progress = 0,
-    image = "",
+    image = '',
     handleDeleteImage = () => {},
     ...rest
   } = props;
@@ -14,23 +14,13 @@ const ImageUpload = (props) => {
     <label
       className={`cursor-pointer flex items-center justify-center border border-dashed w-full min-h-[200px] rounded-lg ${className} relative overflow-hidden group`}
     >
-      <input
-        type="file"
-        name={name}
-        className="hidden-input"
-        onChange={() => {}}
-        {...rest}
-      />
+      <input type="file" name={name} className="hidden-input" onChange={() => {}} {...rest} />
       {progress !== 0 && !image && (
         <div className="absolute z-10 w-16 h-16 border-8 border-green-500 rounded-full loading border-t-transparent animate-spin"></div>
       )}
       {!image && progress === 0 && (
         <div className="flex flex-col items-center text-center pointer-events-none">
-          <img
-            src="/img-upload.png"
-            alt="upload-img"
-            className="max-w-[80px] mb-5"
-          />
+          <img src="/img-upload.png" alt="upload-img" className="max-w-[80px] mb-5" />
           <p className="font-semibold">Choose photo</p>
         </div>
       )}

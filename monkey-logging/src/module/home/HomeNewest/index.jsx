@@ -1,1 +1,1 @@
-export { default } from "./HomeNewest.boundary";
+export { default } from './HomeNewest.boundary';

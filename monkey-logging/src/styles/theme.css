@@ -1,15 +1,15 @@
 @theme {
-  --color-primary: #1DC071;
-  --color-secondary: #A4D96C;
-  --color-gray-dark: #292D32;
-  --color-gray-light: #E7ECF3;
-  --color-tertiary: #3A1097;
-  --color-accent: #00D1ED;
-  --color-gray-f3: #F3EDFF;
-  --color-gray-6b: #6B6B6B;
+  --color-primary: #1dc071;
+  --color-secondary: #a4d96c;
+  --color-gray-dark: #292d32;
+  --color-gray-light: #e7ecf3;
+  --color-tertiary: #3a1097;
+  --color-accent: #00d1ed;
+  --color-gray-f3: #f3edff;
+  --color-gray-6b: #6b6b6b;
   --color-gray-23: #232323;
-  --color-gray-4b: #4B5264;
-  --color-gray-f1: #F1F1F3;
+  --color-gray-4b: #4b5264;
+  --color-gray-f1: #f1f1f3;
   --color-gray-80: #808191;
   --color-black: #171725;
 }

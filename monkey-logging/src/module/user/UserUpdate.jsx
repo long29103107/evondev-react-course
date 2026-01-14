@@ -1,21 +1,21 @@
-import { Button } from "@/components/button";
-import { Radio } from "@/components/checkbox";
-import { Field, FieldCheckboxes } from "@/components/field";
-import ImageUpload from "@/components/image/ImageUpload";
-import { Input } from "@/components/input";
-import { Label } from "@/components/label";
-import { Textarea } from "@/components/textarea";
-import { useAuth } from "@/contexts/auth-context";
-import { db } from "@/firebase-app/firebase-config";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
-import useFirebaseImage from "@/hooks/useFirebaseImage";
-import DashboardHeading from "@/module/dashboard/DashboardHeading";
-import React, { useEffect } from "react";
-import { useForm } from "react-hook-form";
-import { useSearchParams } from "react-router-dom";
-import { toast } from "react-toastify";
-import Swal from "sweetalert2";
-import { userRole, userStatus } from "@/utils/constants";
+import { Button } from '@/components/button';
+import { Radio } from '@/components/checkbox';
+import { Field, FieldCheckboxes } from '@/components/field';
+import ImageUpload from '@/components/image/ImageUpload';
+import { Input } from '@/components/input';
+import { Label } from '@/components/label';
+import { Textarea } from '@/components/textarea';
+import { useAuth } from '@/contexts/auth-context';
+import { db } from '@/firebase-app/firebase-config';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
+import useFirebaseImage from '@/hooks/useFirebaseImage';
+import DashboardHeading from '@/module/dashboard/DashboardHeading';
+import React, { useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import { useSearchParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import Swal from 'sweetalert2';
+import { userRole, userStatus } from '@/utils/constants';
 
 const UserUpdate = () => {
   const {
@@ -27,41 +27,45 @@ const UserUpdate = () => {
     setValue,
     formState: { isValid, isSubmitting },
   } = useForm({
-    mode: "onChange",
+    mode: 'onChange',
   });
   const [params] = useSearchParams();
-  const userId = params.get("id");
-  const watchStatus = watch("status");
-  const watchRole = watch("role");
-  const imageUrl = getValues("avatar");
+  const userId = params.get('id');
+  const watchStatus = watch('status');
+  const watchRole = watch('role');
+  const imageUrl = getValues('avatar');
   const imageRegex = /%2F(\S+)\?/gm.exec(imageUrl);
-  const imageName = imageRegex?.length > 0 ? imageRegex[1] : "";
-  const { image, setImage, progress, handleSelectImage, handleDeleteImage } =
-    useFirebaseImage(setValue, getValues, imageName, deleteAvatar);
+  const imageName = imageRegex?.length > 0 ? imageRegex[1] : '';
+  const { image, setImage, progress, handleSelectImage, handleDeleteImage } = useFirebaseImage(
+    setValue,
+    getValues,
+    imageName,
+    deleteAvatar,
+  );
   const { userInfo } = useAuth();
   const handleUpdateUser = async (values) => {
     if (!isValid) return;
     if (userInfo?.role !== userRole.ADMIN) {
-      Swal.fire("Failed", "You have no right to do this action", "warning");
+      Swal.fire('Failed', 'You have no right to do this action', 'warning');
       return;
     }
     try {
-      const colRef = doc(db, "users", userId);
+      const colRef = doc(db, 'users', userId);
       await updateDoc(colRef, {
         ...values,
         avatar: image,
       });
-      toast.success("Update user information successfully!");
+      toast.success('Update user information successfully!');
     } catch (error) {
       console.log(error);
-      toast.error("Update user failed!");
+      toast.error('Update user failed!');
     }
   };
 
   async function deleteAvatar() {
-    const colRef = doc(db, "users", userId);
+    const colRef = doc(db, 'users', userId);
     await updateDoc(colRef, {
-      avatar: "",
+      avatar: '',
     });
   }
   useEffect(() => {
@@ -70,7 +74,7 @@ const UserUpdate = () => {
   useEffect(() => {
     async function fetchData() {
       if (!userId) return;
-      const colRef = doc(db, "users", userId);
+      const colRef = doc(db, 'users', userId);
       const docData = await getDoc(colRef);
       reset(docData && docData.data());
     }
@@ -80,10 +84,7 @@ const UserUpdate = () => {
   if (!userId) return null;
   return (
     <div>
-      <DashboardHeading
-        title="Update user"
-        desc="Update user information"
-      ></DashboardHeading>
+      <DashboardHeading title="Update user" desc="Update user information" />
       <form onSubmit={handleSubmit(handleUpdateUser)}>
         <div className="w-[200px] h-[200px] mx-auto rounded-full mb-10">
           <ImageUpload
@@ -92,24 +93,16 @@ const UserUpdate = () => {
             handleDeleteImage={handleDeleteImage}
             progress={progress}
             image={image}
-          ></ImageUpload>
+          />
         </div>
         <div className="form-layout">
           <Field>
             <Label>Fullname</Label>
-            <Input
-              name="fullname"
-              placeholder="Enter your fullname"
-              control={control}
-            ></Input>
+            <Input name="fullname" placeholder="Enter your fullname" control={control} />
           </Field>
           <Field>
             <Label>Username</Label>
-            <Input
-              name="username"
-              placeholder="Enter your username"
-              control={control}
-            ></Input>
+            <Input name="username" placeholder="Enter your username" control={control} />
           </Field>
         </div>
         <div className="form-layout">
@@ -120,7 +113,7 @@ const UserUpdate = () => {
               placeholder="Enter your email"
               control={control}
               type="email"
-            ></Input>
+            />
           </Field>
           <Field>
             <Label>Password</Label>
@@ -129,7 +122,7 @@ const UserUpdate = () => {
               placeholder="Enter your password"
               control={control}
               type="password"
-            ></Input>
+            />
           </Field>
         </div>
         <div className="form-layout">
@@ -195,7 +188,7 @@ const UserUpdate = () => {
         <div className="form-layout">
           <Field>
             <Label>Description</Label>
-            <Textarea name="description" control={control}></Textarea>
+            <Textarea name="description" control={control} />
           </Field>
         </div>
         <Button

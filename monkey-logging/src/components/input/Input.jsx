@@ -1,15 +1,14 @@
-import React from "react";
-import styled from "styled-components";
-import { useController } from "react-hook-form";
-import PropTypes from "prop-types";
+import React from 'react';
+import styled from 'styled-components';
+import { useController } from 'react-hook-form';
+import PropTypes from 'prop-types';
 
 const InputStyles = styled.div`
   position: relative;
   width: 100%;
   input {
     width: 100%;
-    padding: ${(props) =>
-      props.$hasIcon ? "16px 60px 16px 20px" : "16px 20px"};
+    padding: ${(props) => (props.$hasIcon ? '16px 60px 16px 20px' : '16px 20px')};
     background-color: transparent;
     border: 1px solid ${(props) => props.theme.grayf1};
     border-radius: 8px;
@@ -38,11 +37,11 @@ const InputStyles = styled.div`
  * @param {*} control - control from react hook form
  * @returns Input
  */
-const Input = ({ name = "", type = "text", children, control, ...props }) => {
+const Input = ({ name = '', type = 'text', children, control, ...props }) => {
   const { field } = useController({
     control,
     name,
-    defaultValue: "",
+    defaultValue: '',
   });
   return (
     <InputStyles $hasIcon={children ? true : false}>

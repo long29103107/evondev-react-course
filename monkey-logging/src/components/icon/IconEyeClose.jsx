@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 
-const IconEyeClose = ({ className = "", onClick = () => {} }) => {
+const IconEyeClose = ({ className = '', onClick = () => {} }) => {
   return (
     <span className={className} onClick={onClick}>
       <svg

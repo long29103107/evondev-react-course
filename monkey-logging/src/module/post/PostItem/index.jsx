@@ -1,1 +1,1 @@
-export { default } from "./PostItem.boundary";
+export { default } from './PostItem.boundary';

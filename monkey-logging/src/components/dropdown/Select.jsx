@@ -1,7 +1,7 @@
-import React from "react";
-import useDropdown from "@/hooks/useDropdown";
+import React from 'react';
+import useDropdown from '@/hooks/useDropdown';
 
-const Select = ({ placeholder = "", className = "" }) => {
+const Select = ({ placeholder = '', className = '' }) => {
   const { toggle, show } = useDropdown();
   return (
     <div
@@ -19,11 +19,7 @@ const Select = ({ placeholder = "", className = "" }) => {
             stroke="currentColor"
             strokeWidth="2"
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M5 15l7-7 7 7"
-            />
+            <path strokeLinecap="round" strokeLinejoin="round" d="M5 15l7-7 7 7" />
           </svg>
         ) : (
           <svg
@@ -34,11 +30,7 @@ const Select = ({ placeholder = "", className = "" }) => {
             stroke="currentColor"
             strokeWidth="2"
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M19 9l-7 7-7-7"
-            />
+            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
           </svg>
         )}
       </span>

@@ -1,10 +1,10 @@
-import styled from "styled-components";
-import slugify from "slugify";
-import React from "react";
-import PostTitle from "../PostTitle";
-import PostMeta from "../PostMeta";
-import PostImage from "../PostImage";
-import PostCategory from "../PostCategory";
+import styled from 'styled-components';
+import slugify from 'slugify';
+import React from 'react';
+import PostTitle from '../PostTitle';
+import PostMeta from '../PostMeta';
+import PostImage from '../PostImage';
+import PostCategory from '../PostCategory';
 const PostFeatureItemStyles = styled.div`
   width: 100%;
   border-radius: 16px;
@@ -52,25 +52,21 @@ const PostFeatureItemStyles = styled.div`
 `;
 const PostFeatureItem = ({ data }) => {
   if (!data || !data.id) return null;
-  const date = data?.createdAt?.seconds
-    ? new Date(data?.createdAt?.seconds * 1000)
-    : new Date();
-  const formatDate = new Date(date).toLocaleDateString("vi-VI");
+  const date = data?.createdAt?.seconds ? new Date(data?.createdAt?.seconds * 1000) : new Date();
+  const formatDate = new Date(date).toLocaleDateString('vi-VI');
   const { category, user } = data;
   return (
     <PostFeatureItemStyles>
-      <PostImage url={data.image} alt="unsplash"></PostImage>
+      <PostImage url={data.image} alt="unsplash" />
       <div className="post-overlay"></div>
       <div className="post-content">
         <div className="post-top">
-          {category?.name && (
-            <PostCategory to={category.slug}>{category.name}</PostCategory>
-          )}
+          {category?.name && <PostCategory to={category.slug}>{category.name}</PostCategory>}
           <PostMeta
-            to={slugify(user?.username || "", { lower: true })}
+            to={slugify(user?.username || '', { lower: true })}
             authorName={user?.fullname}
             date={formatDate}
-          ></PostMeta>
+          />
         </div>
         <PostTitle to={data.slug} size="big">
           {data.title}

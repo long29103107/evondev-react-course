@@ -1,18 +1,18 @@
-import { Button } from "@/components/button";
-import { Radio } from "@/components/checkbox";
-import { Field, FieldCheckboxes } from "@/components/field";
-import { Input } from "@/components/input";
-import { Label } from "@/components/label";
-import { useAuth } from "@/contexts/auth-context";
-import { db } from "@/firebase-app/firebase-config";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
-import DashboardHeading from "@/module/dashboard/DashboardHeading";
-import React from "react";
-import { useForm } from "react-hook-form";
-import { toast } from "react-toastify";
-import slugify from "slugify";
-import Swal from "sweetalert2";
-import { categoryStatus, userRole } from "@/utils/constants";
+import { Button } from '@/components/button';
+import { Radio } from '@/components/checkbox';
+import { Field, FieldCheckboxes } from '@/components/field';
+import { Input } from '@/components/input';
+import { Label } from '@/components/label';
+import { useAuth } from '@/contexts/auth-context';
+import { db } from '@/firebase-app/firebase-config';
+import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
+import DashboardHeading from '@/module/dashboard/DashboardHeading';
+import React from 'react';
+import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
+import slugify from 'slugify';
+import Swal from 'sweetalert2';
+import { categoryStatus, userRole } from '@/utils/constants';
 
 const CategoryAddNew = () => {
   const {
@@ -22,10 +22,10 @@ const CategoryAddNew = () => {
     reset,
     formState: { isValid, isSubmitting },
   } = useForm({
-    mode: "onChange",
+    mode: 'onChange',
     defaultValues: {
-      name: "",
-      slug: "",
+      name: '',
+      slug: '',
       status: 1,
       createdAt: new Date(),
     },
@@ -34,7 +34,7 @@ const CategoryAddNew = () => {
   const handleAddNewCategory = async (values) => {
     if (!isValid) return;
     if (userInfo?.role !== userRole.ADMIN) {
-      Swal.fire("Failed", "You have no right to do this action", "warning");
+      Swal.fire('Failed', 'You have no right to do this action', 'warning');
       return;
     }
     const newValues = { ...values };
@@ -42,31 +42,28 @@ const CategoryAddNew = () => {
       lower: true,
     });
     newValues.status = Number(newValues.status);
-    const colRef = collection(db, "categories");
+    const colRef = collection(db, 'categories');
     try {
       await addDoc(colRef, {
         ...newValues,
         createdAt: serverTimestamp(),
       });
-      toast.success("Create new category successfully!");
+      toast.success('Create new category successfully!');
     } catch (error) {
       toast.error(error.message);
     } finally {
       reset({
-        name: "",
-        slug: "",
+        name: '',
+        slug: '',
         status: 1,
         createdAt: new Date(),
       });
     }
   };
-  const watchStatus = watch("status");
+  const watchStatus = watch('status');
   return (
     <div>
-      <DashboardHeading
-        title="New category"
-        desc="Add new category"
-      ></DashboardHeading>
+      <DashboardHeading title="New category" desc="Add new category" />
       <form
         onSubmit={handleSubmit(handleAddNewCategory)}
         autoComplete="off
@@ -75,20 +72,11 @@ const CategoryAddNew = () => {
         <div className="form-layout">
           <Field>
             <Label>Name</Label>
-            <Input
-              control={control}
-              name="name"
-              placeholder="Enter your category name"
-              required
-            ></Input>
+            <Input control={control} name="name" placeholder="Enter your category name" required />
           </Field>
           <Field>
             <Label>Slug</Label>
-            <Input
-              control={control}
-              name="slug"
-              placeholder="Enter your slug"
-            ></Input>
+            <Input control={control} name="slug" placeholder="Enter your slug" />
           </Field>
         </div>
         <div className="form-layout">

@@ -1,6 +1,6 @@
-import { IconEyeClose, IconEyeOpen } from "@/components/icon";
-import React, { Fragment, useState } from "react";
-import { Input } from "@/components/input";
+import { IconEyeClose, IconEyeOpen } from '@/components/icon';
+import React, { Fragment, useState } from 'react';
+import { Input } from '@/components/input';
 
 const InputPasswordToggle = ({ control }) => {
   const [togglePassword, setTogglePassword] = useState(false);
@@ -8,7 +8,7 @@ const InputPasswordToggle = ({ control }) => {
   return (
     <Fragment>
       <Input
-        type={togglePassword ? "text" : "password"}
+        type={togglePassword ? 'text' : 'password'}
         name="password"
         placeholder="Enter your password"
         control={control}

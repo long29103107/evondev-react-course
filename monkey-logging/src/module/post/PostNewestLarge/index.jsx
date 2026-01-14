@@ -1,1 +1,1 @@
-export { default } from "./PostNewestLarge.boundary";
+export { default } from './PostNewestLarge.boundary';

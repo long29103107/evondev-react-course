@@ -1,11 +1,11 @@
-import styled from "styled-components";
-import { Button } from "@/components/button";
-import { NavLink } from "react-router-dom";
-import useAuth from "@/hooks/useAuth";
-import { signOut } from "firebase/auth";
-import { auth } from "@/firebase-app/firebase-config";
-import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import styled from 'styled-components';
+import { Button } from '@/components/button';
+import { NavLink } from 'react-router-dom';
+import useAuth from '@/hooks/useAuth';
+import { signOut } from 'firebase/auth';
+import { auth } from '@/firebase-app/firebase-config';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 const HeaderStyles = styled.div`
   color: ${(props) => props.theme.white};
@@ -66,41 +66,41 @@ const HeaderStyles = styled.div`
 const menuLinks = [
   {
     id: 1,
-    url: "/home",
-    title: "Home",
+    url: '/home',
+    title: 'Home',
   },
   {
     id: 2,
-    url: "/blog",
-    title: "Blog",
+    url: '/blog',
+    title: 'Blog',
   },
   {
     id: 3,
-    url: "/contact",
-    title: "Contact",
+    url: '/contact',
+    title: 'Contact',
   },
 ];
 
 const getLastName = (name) => {
-  if (!name) return "";
-  const length = name.split(" ").length;
-  return name.split(" ")[length - 1];
-}
+  if (!name) return '';
+  const length = name.split(' ').length;
+  return name.split(' ')[length - 1];
+};
 
 const Header = () => {
-  const {userInfo} = useAuth();
+  const { userInfo } = useAuth();
   const navigate = useNavigate();
   const handleSignOut = async () => {
     await signOut(auth);
-    toast.success("Sign out successfully");
-    navigate("/sign-in");
-  }
+    toast.success('Sign out successfully');
+    navigate('/sign-in');
+  };
 
   return (
     <HeaderStyles>
       <div className="container">
         <div className="header-main">
-          <NavLink to={"/"}>
+          <NavLink to={'/'}>
             <img srcSet="/logo.png 2x" alt="monkey-logo" className="logo" />
           </NavLink>
           <ul className="menu">
@@ -114,11 +114,7 @@ const Header = () => {
           </ul>
 
           <div className="search">
-            <input
-              type="text"
-              placeholder="Search post ..."
-              className="search-input"
-            />
+            <input type="text" placeholder="Search post ..." className="search-input" />
             <span className="search-icon">
               <svg
                 width="18"
@@ -151,18 +147,23 @@ const Header = () => {
             </span>
           </div>
 
-          {!userInfo?.email 
-            ? <Button width="100px" height="56px" to="/sign-up">Sign Up</Button> 
-            : <div className="header-auth">
-                <strong>Welcome, </strong>
-                <span className="text-primary">{getLastName(userInfo?.displayName)}</span>
-                  <Button width="100px" height="56px" onClick={handleSignOut}>Sign Out</Button>
-              </div>
-          }
+          {!userInfo?.email ? (
+            <Button width="100px" height="56px" to="/sign-up">
+              Sign Up
+            </Button>
+          ) : (
+            <div className="header-auth">
+              <strong>Welcome, </strong>
+              <span className="text-primary">{getLastName(userInfo?.displayName)}</span>
+              <Button width="100px" height="56px" onClick={handleSignOut}>
+                Sign Out
+              </Button>
             </div>
+          )}
         </div>
+      </div>
     </HeaderStyles>
-    );
-  };
-  
-  export default Header;
+  );
+};
+
+export default Header;

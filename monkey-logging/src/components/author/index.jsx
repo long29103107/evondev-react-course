@@ -1,1 +1,1 @@
-export { default } from "./AuthorBox";
+export { default } from './AuthorBox';

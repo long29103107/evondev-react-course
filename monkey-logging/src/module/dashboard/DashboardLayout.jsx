@@ -1,9 +1,9 @@
-import useAuth from "@/hooks/useAuth";
-import PageNotFound from "@/pages/NotFoundPage";
-import { Outlet } from "react-router-dom";
-import styled from "styled-components";
-import DashboardHeader from "./DashboardHeader";
-import Sidebar from "./Sidebar";
+import useAuth from '@/hooks/useAuth';
+import PageNotFound from '@/pages/NotFoundPage';
+import { Outlet } from 'react-router-dom';
+import styled from 'styled-components';
+import DashboardHeader from './DashboardHeader';
+import Sidebar from './Sidebar';
 const DashboardStyles = styled.div`
   max-width: 1600px;
   margin: 0 auto;
@@ -38,14 +38,14 @@ const DashboardStyles = styled.div`
 `;
 const DashboardLayout = () => {
   const { userInfo } = useAuth();
-  if (!userInfo) return <PageNotFound></PageNotFound>;
+  if (!userInfo) return <PageNotFound />;
   return (
     <DashboardStyles>
-      <DashboardHeader></DashboardHeader>
+      <DashboardHeader />
       <div className="dashboard-main">
-        <Sidebar></Sidebar>
+        <Sidebar />
         <div className="dashboard-children">
-          <Outlet></Outlet>
+          <Outlet />
         </div>
       </div>
     </DashboardStyles>

@@ -6,11 +6,15 @@
   "scripts": {
     "dev": "bunx vite",
     "build": "bunx vite build",
-    "preview": "bunx vite preview"
+    "preview": "bunx vite preview",
+    "format": "prettier --write .",
+    "check-format": "prettier --check ."
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
+    "eslint-plugin-prettier": "^5.5.4",
     "firebase": "^12.7.0",
+    "prettier": "^3.7.4",
     "prop-types": "^15.8.1",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
@@ -45,5 +49,8 @@
     "tailwindcss": "^4.1.18",
     "vite": "^7.2.4",
     "vite-plugin-eslint": "^1.8.1"
+  },
+  "lint-staged": {
+    "*.{js,ts,jsx,tsx}": "prettier --check"
   }
 }

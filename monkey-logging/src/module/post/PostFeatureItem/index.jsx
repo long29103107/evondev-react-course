@@ -1,1 +1,1 @@
-export { default } from "./PostFeatureItem.boundary";
+export { default } from './PostFeatureItem.boundary';

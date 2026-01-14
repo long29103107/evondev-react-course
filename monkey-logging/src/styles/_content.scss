@@ -1,6 +1,6 @@
 .entry-content,
 .entry-content .ql-snow .ql-editor {
-  font-family: "Epilogue", sans-serif;
+  font-family: 'Epilogue', sans-serif;
   font-size: 16px;
   h2,
   h3,
@@ -54,10 +54,12 @@
     margin-bottom: 30px;
   }
 
-  button, a, label {
+  button,
+  a,
+  label {
     cursor: pointer;
   }
-  
+
   @media screen and (max-width: 1023.98px) {
     font-size: 14px;
     h2 {

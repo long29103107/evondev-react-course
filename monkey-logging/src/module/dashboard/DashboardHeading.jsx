@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 
-const DashboardHeading = ({ title = "", desc = "", children }) => {
+const DashboardHeading = ({ title = '', desc = '', children }) => {
   return (
     <div className="mb-10 flex items-start justify-between">
       <div>

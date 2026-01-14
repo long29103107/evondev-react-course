@@ -1,5 +1,5 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 const HeadingStyles = styled.h2`
   font-size: 28px;
   position: relative;
@@ -10,7 +10,7 @@ const HeadingStyles = styled.h2`
     margin-bottom: 20px;
   }
 `;
-const Heading = ({ className = "", children }) => {
+const Heading = ({ className = '', children }) => {
   return <HeadingStyles className={className}>{children}</HeadingStyles>;
 };
 
