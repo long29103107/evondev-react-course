@@ -1,13 +1,12 @@
-import useFirebaseImage from '@/hooks/useFirebaseImage';
+import useUploadcareImage from '@/hooks/useUploadcareImage';
 import Toggle from '@/components/toggle/Toggle';
 import slugify from 'slugify';
 import React, { useEffect, useState } from 'react';
 import ImageUpload from '@/components/image/ImageUpload';
 import { useForm } from 'react-hook-form';
-import useAuth from '@/hooks/useAuth';
 import { toast } from 'react-toastify';
 import { Radio } from '@/components/checkbox';
-import { postStatus, userRole } from '@/utils/constants';
+import { postStatus } from '@/utils/constants';
 import { Label } from '@/components/label';
 import { Input } from '@/components/input';
 import { Field, FieldCheckboxes } from '@/components/field';
@@ -25,10 +24,22 @@ import {
   where,
 } from 'firebase/firestore';
 import DashboardHeading from '@/module/dashboard/DashboardHeading';
-import Swal from 'sweetalert2';
+import useAuth from '@/hooks/useAuth';
+// import { useNavigate } from 'react-router-dom';
+
+// const isAdmin = (userInfo) => {
+//   return userInfo.role === userRole.ADMIN;
+// };
 
 const PostAddNew = () => {
   const { userInfo } = useAuth();
+  // const navigate = useNavigate();
+  // useEffect(() => {
+  //   if (!userInfo || !isAdmin(userInfo)) {
+  //     navigate('/sign-in');
+  //   }
+  // }, [userInfo, navigate]);
+
   const { control, watch, setValue, handleSubmit, getValues, reset } = useForm({
     mode: 'onChange',
     defaultValues: {
@@ -43,14 +54,20 @@ const PostAddNew = () => {
   });
   const watchStatus = watch('status');
   const watchHot = watch('hot');
-  const { image, handleResetUpload, progress, handleSelectImage, handleDeleteImage } =
-    useFirebaseImage(setValue, getValues);
+  const {
+    image,
+    handleResetUpload,
+    progress,
+    handleSelectImage,
+    handleDeleteImage,
+    handleClickImage,
+  } = useUploadcareImage(setValue, getValues);
   const [categories, setCategories] = useState([]);
   const [selectCategory, setSelectCategory] = useState('');
   const [loading, setLoading] = useState(false);
   useEffect(
     () => async () => {
-      async function fetchUserData() {
+      const fetchUserData = async () => {
         if (!userInfo?.email) return;
         const q = query(collection(db, 'users'), where('email', '==', userInfo.email));
         const querySnapshot = await getDocs(q);
@@ -60,16 +77,12 @@ const PostAddNew = () => {
             ...doc.data(),
           });
         });
-      }
+      };
       fetchUserData();
     },
-    [userInfo?.email],
+    [userInfo?.email, setValue],
   );
   const addPostHandler = async (values) => {
-    if (userInfo?.role !== userRole.ADMIN) {
-      Swal.fire('Failed', 'You have no right to do this action', 'warning');
-      return;
-    }
     setLoading(true);
     try {
       const cloneValues = { ...values };
@@ -151,10 +164,12 @@ const PostAddNew = () => {
             <Label>Image</Label>
             <ImageUpload
               onChange={handleSelectImage}
+              onClick={handleClickImage}
               handleDeleteImage={handleDeleteImage}
               className="h-[250px]"
               progress={progress}
               image={image}
+              previewImage={'204x192'}
             />
           </Field>
           <Field>

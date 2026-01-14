@@ -8,11 +8,15 @@ const ImageUpload = (props) => {
     progress = 0,
     image = '',
     handleDeleteImage = () => {},
+    previewImage = '',
     ...rest
   } = props;
+
+  const previewImageUrl = previewImage ? `${image}-/preview/${previewImage}/` : image;
+
   return (
     <label
-      className={`cursor-pointer flex items-center justify-center border border-dashed w-full min-h-[200px] rounded-lg ${className} relative overflow-hidden group`}
+      className={`cursor-pointer flex items-start justify-end border border-dashed w-full min-h-[200px] rounded-lg ${className} relative overflow-hidden group`}
     >
       <input type="file" name={name} className="hidden-input" {...rest} />
       {progress !== 0 && !image && (
@@ -26,15 +30,15 @@ const ImageUpload = (props) => {
       )}
       {image && (
         <Fragment>
-          <img src={image} className="object-cover w-full h-full" alt="" />
+          <img src={previewImageUrl} className="object-cover w-full h-full" alt="" />
           <button
             type="button"
-            className="absolute z-10 flex items-center justify-center invisible w-16 h-16 text-red-500 transition-all bg-white rounded-full opacity-0 cursor-pointer group-hover:opacity-100 group-hover:visible"
+            className="absolute z-10 flex items-center justify-center invisible w-8 h-8 text-red-500 transition-all bg-white rounded-full opacity-0 cursor-pointer group-hover:opacity-100 group-hover:visible mt-2 mr-2"
             onClick={handleDeleteImage}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="w-6 h-6"
+              className="w-4 h-4"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
