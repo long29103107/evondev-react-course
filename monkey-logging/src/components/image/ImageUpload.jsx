@@ -14,7 +14,7 @@ const ImageUpload = (props) => {
     <label
       className={`cursor-pointer flex items-center justify-center border border-dashed w-full min-h-[200px] rounded-lg ${className} relative overflow-hidden group`}
     >
-      <input type="file" name={name} className="hidden-input" onChange={() => {}} {...rest} />
+      <input type="file" name={name} className="hidden-input" {...rest} />
       {progress !== 0 && !image && (
         <div className="absolute z-10 w-16 h-16 border-8 border-green-500 rounded-full loading border-t-transparent animate-spin"></div>
       )}

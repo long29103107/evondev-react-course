@@ -1,14 +1,9 @@
-import {
-  deleteObject,
-  getDownloadURL,
-  getStorage,
-  ref,
-  uploadBytesResumable,
-} from 'firebase/storage';
+import { deleteObject, getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { useState } from 'react';
 import Swal from 'sweetalert2';
 import { userRole } from '@/utils/constants';
 import useAuth from '@/hooks/useAuth';
+import { storage } from '@/firebase-app/firebase-config';
 
 export default function useFirebaseImage(setValue, getValues, imageName = null, cb = null) {
   const { userInfo } = useAuth();
@@ -16,11 +11,10 @@ export default function useFirebaseImage(setValue, getValues, imageName = null, 
   const [image, setImage] = useState('');
   if (!setValue || !getValues) return;
   const handleUploadImage = (file) => {
-    if (userInfo?.role !== userRole.ADMIN) {
-      Swal.fire('Failed', 'You have no right to do this action', 'warning');
-      return;
-    }
-    const storage = getStorage();
+    // if (userInfo?.role !== userRole.ADMIN) {
+    //   Swal.fire('Failed', 'You have no right to do this action', 'warning');
+    //   return;
+    // }
     const storageRef = ref(storage, 'images/' + file.name);
     const uploadTask = uploadBytesResumable(storageRef, file);
     uploadTask.on(
@@ -63,7 +57,6 @@ export default function useFirebaseImage(setValue, getValues, imageName = null, 
       Swal.fire('Failed', 'You have no right to do this action', 'warning');
       return;
     }
-    const storage = getStorage();
     const imageRef = ref(storage, 'images/' + (imageName || getValues('image_name')));
     deleteObject(imageRef)
       .then(() => {

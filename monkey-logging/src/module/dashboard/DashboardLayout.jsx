@@ -1,10 +1,9 @@
 import useAuth from '@/hooks/useAuth';
-import PageNotFound from '@/pages/NotFoundPage';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import DashboardHeader from './DashboardHeader';
 import Sidebar from './Sidebar';
-import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 const DashboardStyles = styled.div`
   max-width: 1600px;
@@ -41,9 +40,13 @@ const DashboardStyles = styled.div`
 const DashboardLayout = () => {
   const { userInfo } = useAuth();
   const navigate = useNavigate();
-  if (!userInfo) {
-    navigate('/sign-in');
-  }
+
+  useEffect(() => {
+    if (!userInfo) {
+      navigate('/sign-in');
+    }
+  }, [userInfo, navigate]);
+
   return (
     <DashboardStyles>
       <DashboardHeader />
