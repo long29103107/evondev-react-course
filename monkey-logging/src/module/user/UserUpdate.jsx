@@ -5,7 +5,6 @@ import ImageUpload from '@/components/image/ImageUpload';
 import { Input } from '@/components/input';
 import { Label } from '@/components/label';
 import { Textarea } from '@/components/textarea';
-import { useAuth } from '@/contexts/auth-context';
 import { db } from '@/firebase-app/firebase-config';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import useFirebaseImage from '@/hooks/useFirebaseImage';
@@ -16,6 +15,7 @@ import { useSearchParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
 import { userRole, userStatus } from '@/utils/constants';
+import useAuth from '@/hooks/useAuth';
 
 const UserUpdate = () => {
   const {
