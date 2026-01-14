@@ -56,6 +56,7 @@ const PostAddNew = () => {
   const watchHot = watch('hot');
   const {
     image,
+    fileId,
     handleResetUpload,
     progress,
     handleSelectImage,
@@ -91,7 +92,7 @@ const PostAddNew = () => {
       const colRef = collection(db, 'posts');
       await addDoc(colRef, {
         ...cloneValues,
-        image,
+        fileId,
         createdAt: serverTimestamp(),
       });
       toast.success('Create new post successfully!');
@@ -101,7 +102,7 @@ const PostAddNew = () => {
         status: 2,
         category: {},
         hot: false,
-        image: '',
+        fileId: '',
         user: {},
       });
       handleResetUpload();

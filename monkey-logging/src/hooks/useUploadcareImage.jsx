@@ -81,11 +81,12 @@ const useUploadcareImage = (setValue, getValues, cb = null) => {
   return {
     image,
     setImage,
+    fileId,
     progress,
     handleSelectImage,
     handleDeleteImage,
     handleResetUpload,
-    handleClickImage
+    handleClickImage,
   };
 };
 
