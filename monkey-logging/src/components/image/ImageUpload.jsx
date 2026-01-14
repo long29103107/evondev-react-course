@@ -16,7 +16,7 @@ const ImageUpload = (props) => {
 
   return (
     <label
-      className={`cursor-pointer flex items-start justify-end border border-dashed w-full min-h-[200px] rounded-lg ${className} relative overflow-hidden group`}
+      className={`cursor-pointer flex items-center justify-center border border-dashed w-full min-h-[200px] rounded-lg ${className} relative overflow-hidden group`}
     >
       <input type="file" name={name} className="hidden-input" {...rest} />
       {progress !== 0 && !image && (
@@ -33,7 +33,7 @@ const ImageUpload = (props) => {
           <img src={previewImageUrl} className="object-cover w-full h-full" alt="" />
           <button
             type="button"
-            className="absolute z-10 flex items-center justify-center invisible w-8 h-8 text-red-500 transition-all bg-white rounded-full opacity-0 cursor-pointer group-hover:opacity-100 group-hover:visible mt-2 mr-2"
+            className="absolute top-1 right-1 z-10 flex items-center justify-center invisible w-8 h-8 text-red-500 transition-all bg-white rounded-full opacity-0 cursor-pointer group-hover:opacity-100 group-hover:visible"
             onClick={handleDeleteImage}
           >
             <svg

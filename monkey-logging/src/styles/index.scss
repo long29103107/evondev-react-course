@@ -2,51 +2,6 @@
 @import url('./tailwind.css');
 @import url('./theme.css');
 
-@layer base {
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-
-  *::before,
-  *::after {
-    box-sizing: border-box;
-  }
-
-  body {
-    font-family: 'Montserrat', sans-serif;
-    line-height: 1.5;
-    background-color: #fff;
-  }
-
-  img,
-  picture,
-  video,
-  canvas,
-  svg {
-    display: block;
-    max-width: 100%;
-  }
-  input,
-  button,
-  textarea,
-  select {
-    font: inherit;
-    outline: none;
-  }
-
-  p,
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    overflow-wrap: break-word;
-  }
-}
-
 .container {
   width: 100%;
   max-width: 1000px;
@@ -103,6 +58,7 @@
   width: 1px;
   white-space: nowrap;
 }
+
 
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
