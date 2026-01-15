@@ -21,7 +21,7 @@ import { categoryStatus, userRole } from '@/utils/constants';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 import { debounce } from 'lodash';
-import { useAuth } from '@/contexts/auth-context';
+import useAuth from '@/hooks/useAuth';
 
 const CATEGORY_PER_PAGE = 10;
 

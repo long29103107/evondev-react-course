@@ -1,4 +1,6 @@
 import ErrorPage from "./ErrorPage";
+import { useEffect } from 'react';
+
 const ForbiddenPage = () => {
   useEffect(() => {
     document.title = 'Forbidden | Monkey Blogging';

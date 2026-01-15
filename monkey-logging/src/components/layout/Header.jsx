@@ -2,10 +2,6 @@ import styled from 'styled-components';
 import { Button } from '@/components/button';
 import { NavLink } from 'react-router-dom';
 import useAuth from '@/hooks/useAuth';
-import { signOut } from 'firebase/auth';
-import { auth } from '@/firebase-app/firebase-config';
-import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
 
 const HeaderStyles = styled.div`
   color: ${(props) => props.theme.white};
@@ -68,16 +64,25 @@ const menuLinks = [
     id: 1,
     url: '/home',
     title: 'Home',
+    requiredAuth: false,
   },
   {
     id: 2,
     url: '/blog',
     title: 'Blog',
+    requiredAuth: false,
   },
   {
     id: 3,
     url: '/contact',
     title: 'Contact',
+    requiredAuth: false,
+  },
+  {
+    id: 4,
+    url: '/dashboard',
+    title: 'Dashboard',
+    requiredAuth: true,
   },
 ];
 
@@ -89,12 +94,6 @@ const getLastName = (name) => {
 
 const Header = () => {
   const { userInfo } = useAuth();
-  const navigate = useNavigate();
-  const handleSignOut = async () => {
-    await signOut(auth);
-    toast.success('Sign out successfully');
-    navigate('/sign-in');
-  };
 
   return (
     <HeaderStyles>
@@ -104,13 +103,16 @@ const Header = () => {
             <img srcSet="/logo.png 2x" alt="monkey-logo" className="logo" />
           </NavLink>
           <ul className="menu">
-            {menuLinks.map((link) => (
-              <li key={link.id} className="menu-item">
-                <NavLink to={link.url} className="menu-link">
-                  {link.title}
-                </NavLink>
-              </li>
-            ))}
+            {menuLinks.map((link) => {
+              if (link.requiredAuth && !userInfo?.email) return null;
+              return (
+                <li key={link.id} className="menu-item">
+                  <NavLink to={link.url} className="menu-link">
+                    {link.title}
+                  </NavLink>
+                </li>
+              );
+            })}
           </ul>
 
           <div className="search">
@@ -148,16 +150,13 @@ const Header = () => {
           </div>
 
           {!userInfo?.email ? (
-            <Button width="100px" height="56px" to="/sign-up">
-              Sign Up
+            <Button width="100px" height="56px" to="/sign-in">
+              Sign In
             </Button>
           ) : (
             <div className="header-auth">
               <strong>Welcome, </strong>
               <span className="text-primary">{getLastName(userInfo?.displayName)}</span>
-              <Button width="100px" height="56px" onClick={handleSignOut}>
-                Sign Out
-              </Button>
             </div>
           )}
         </div>

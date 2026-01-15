@@ -2,7 +2,7 @@ import { ActionDelete, ActionEdit, ActionView } from '@/components/action';
 import { Button } from '@/components/button';
 import { LabelStatus } from '@/components/label';
 import { Table } from '@/components/table';
-import { useAuth } from '@/contexts/auth-context';
+import useAuth from '@/hooks/useAuth';
 import { db } from '@/firebase-app/firebase-config';
 import {
   collection,
