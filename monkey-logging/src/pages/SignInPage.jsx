@@ -68,6 +68,10 @@ const SignInPage = () => {
     navigate('/');
   };
 
+  useEffect(() => {
+    document.title = 'Sign In | Monkey Blogging';
+  }, []);
+
   return (
     <AuthenticationPage>
       <form className="form" onSubmit={handleSubmit(handleSignIn)}>

@@ -1,18 +1,9 @@
-import useUploadcareImage from '@/hooks/useUploadcareImage';
-import Toggle from '@/components/toggle/Toggle';
+// external imports
 import slugify from 'slugify';
 import React, { useEffect, useState } from 'react';
-import ImageUpload from '@/components/image/ImageUpload';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
-import { Radio } from '@/components/checkbox';
-import { postStatus } from '@/utils/constants';
-import { Label } from '@/components/label';
-import { Input } from '@/components/input';
-import { Field, FieldCheckboxes } from '@/components/field';
-import { Dropdown } from '@/components/dropdown';
-import { db } from '@/firebase-app/firebase-config';
-import { Button } from '@/components/button';
+import { useNavigate } from 'react-router-dom';
 import {
   addDoc,
   collection,
@@ -23,9 +14,24 @@ import {
   serverTimestamp,
   where,
 } from 'firebase/firestore';
+
+//component imports
+import Toggle from '@/components/toggle/Toggle';
+import ImageUpload from '@/components/image/ImageUpload';
+import { Radio } from '@/components/checkbox';
+import { Label } from '@/components/label';
+import { Input } from '@/components/input';
+import { Field, FieldCheckboxes } from '@/components/field';
+import { Dropdown } from '@/components/dropdown';
+import { Button } from '@/components/button';
+
+//utils imports
+import { db } from '@/firebase-app/firebase-config';
+import { postStatus } from '@/utils/constants';
 import DashboardHeading from '@/module/dashboard/DashboardHeading';
 import useAuth from '@/hooks/useAuth';
-// import { useNavigate } from 'react-router-dom';
+
+import useUploadcareImage from '@/hooks/useUploadcareImage';
 
 // const isAdmin = (userInfo) => {
 //   return userInfo.role === userRole.ADMIN;
@@ -33,12 +39,14 @@ import useAuth from '@/hooks/useAuth';
 
 const PostAddNew = () => {
   const { userInfo } = useAuth();
-  // const navigate = useNavigate();
-  // useEffect(() => {
-  //   if (!userInfo || !isAdmin(userInfo)) {
-  //     navigate('/sign-in');
-  //   }
-  // }, [userInfo, navigate]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!userInfo) {
+      // || !isAdmin(userInfo)) {
+      navigate('/sign-in');
+    }
+  }, [userInfo, navigate]);
 
   const { control, watch, setValue, handleSubmit, getValues, reset } = useForm({
     mode: 'onChange',
@@ -152,17 +160,17 @@ const PostAddNew = () => {
       <form onSubmit={handleSubmit(addPostHandler)}>
         <div className="form-layout">
           <Field>
-            <Label>Title</Label>
+            <Label requiredField={true}>Title</Label>
             <Input control={control} placeholder="Enter your title" name="title" required />
           </Field>
           <Field>
-            <Label>Slug</Label>
+            <Label requiredField={true}>Slug</Label>
             <Input control={control} placeholder="Enter your slug" name="slug" />
           </Field>
         </div>
         <div className="form-layout">
           <Field>
-            <Label>Image</Label>
+            <Label required>Image</Label>
             <ImageUpload
               onChange={handleSelectImage}
               onClick={handleClickImage}
@@ -174,9 +182,9 @@ const PostAddNew = () => {
             />
           </Field>
           <Field>
-            <Label>Category</Label>
+            <Label requiredField={true}>Category</Label>
             <Dropdown>
-              <Dropdown.Select placeholder="Select the category" />
+              <Dropdown.Select placeholder={selectCategory?.name || 'Select the category'} />
               <Dropdown.List>
                 {categories.length > 0 &&
                   categories.map((item) => (
@@ -199,7 +207,7 @@ const PostAddNew = () => {
             <Toggle on={watchHot === true} onClick={() => setValue('hot', !watchHot)} />
           </Field>
           <Field>
-            <Label>Status</Label>
+            <Label requiredField={true}>Status</Label>
             <FieldCheckboxes>
               <Radio
                 name="status"

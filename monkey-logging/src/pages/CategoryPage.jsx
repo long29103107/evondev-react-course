@@ -10,6 +10,10 @@ const CategoryPage = () => {
   const [posts, setPosts] = useState([]);
   const params = useParams();
   useEffect(() => {
+    document.title = `Category ${params.slug} | Monkey Blogging`;
+  }, [params.slug]);
+  
+  useEffect(() => {
     async function fetchData() {
       const docRef = query(collection(db, 'posts'), where('category.slug', '==', params.slug));
       onSnapshot(docRef, (snapshot) => {

@@ -1,5 +1,8 @@
 import ErrorPage from "./ErrorPage";
 const ForbiddenPage = () => {
+  useEffect(() => {
+    document.title = 'Forbidden | Monkey Blogging';
+  }, []);
   return (
     <ErrorPage
       image="/403.png"

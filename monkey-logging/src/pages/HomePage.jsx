@@ -8,6 +8,9 @@ import styled from 'styled-components';
 const HomePageStyles = styled.div``;
 
 const HomePage = () => {
+  useEffect(() => {
+    document.title = 'Home | Monkey Blogging';
+  }, []);
   return (
     <HomePageStyles>
       <Layout>

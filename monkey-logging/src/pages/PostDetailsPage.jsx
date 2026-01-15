@@ -125,6 +125,11 @@ const PostDetailsPage = () => {
   if (!slug) return <PageNotFound />;
   if (!postInfo.title) return null;
   const { user } = postInfo;
+
+  useEffect(() => {
+    document.title = `${postInfo.title} | Monkey Blogging`;
+  }, [postInfo.title]);
+
   return (
     <PostDetailsPageStyles>
       <Layout>

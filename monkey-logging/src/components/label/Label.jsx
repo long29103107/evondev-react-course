@@ -6,10 +6,10 @@ const LabelStyled = styled.label`
   font-weight: 600;
 `;
 
-const Label = ({ htmlFor = '', children, ...props }) => {
+const Label = ({ htmlFor = '', required: requiredField = false, children, ...props }) => {
   return (
     <LabelStyled htmlFor={htmlFor} {...props}>
-      {children}
+      {children} {requiredField && <span className="text-red-500">*</span>}
     </LabelStyled>
   );
 };
