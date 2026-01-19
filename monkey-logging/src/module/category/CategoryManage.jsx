@@ -5,8 +5,6 @@ import { Table } from '@/components/table';
 import { db } from '@/firebase-app/firebase-config';
 import {
   collection,
-  deleteDoc,
-  doc,
   getDocs,
   limit,
   onSnapshot,
@@ -16,11 +14,12 @@ import {
 } from 'firebase/firestore';
 import DashboardHeading from '@/module/dashboard/DashboardHeading';
 import React, { useEffect, useState } from 'react';
-import { categoryStatus, userRole } from '@/utils/constants';
+import { categoryStatus } from '@/utils/constants';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 import { debounce } from 'lodash';
-import useAuth from '@/hooks/useAuth';
+import { useFirestoreActions } from '@/hooks/useFirestoreActions';
+import { EmptyTable } from '@/components/table';
 
 const CATEGORY_PER_PAGE = 10;
 
@@ -30,6 +29,8 @@ const CategoryManage = () => {
   const [filter, setFilter] = useState(undefined);
   const [lastDoc, setLastDoc] = useState();
   const [total, setTotal] = useState(0);
+  const { remove: deleteCategory } = useFirestoreActions('categories');
+
   const handleLoadMoreCategory = async () => {
     const nextRef = query(
       collection(db, 'categories'),
@@ -51,11 +52,12 @@ const CategoryManage = () => {
     const lastVisible = documentSnapshots.docs[documentSnapshots.docs.length - 1];
     setLastDoc(lastVisible);
   };
+
   useEffect(() => {
-    async function fetchData() {
+    const fetchData = async () => {
       const colRef = collection(db, 'categories');
       const newRef = filter
-        ? query(colRef, where('name', '>=', filter), where('name', '<=', filter + 'utf8'))
+        ? query(colRef, where('name', '>=', filter),  where('name', '<=', filter + 'utf8'))
         : query(colRef, limit(CATEGORY_PER_PAGE));
       const documentSnapshots = await getDocs(newRef);
       const lastVisible = documentSnapshots.docs[documentSnapshots.docs.length - 1];
@@ -75,17 +77,11 @@ const CategoryManage = () => {
         setCategoryList(results);
       });
       setLastDoc(lastVisible);
-    }
+    };
     fetchData();
   }, [filter]);
-  const { userInfo } = useAuth();
-  const handleDeleteCategory = async (docId) => {
-   
-    if (userInfo?.role !== userRole.ADMIN) {
-      Swal.fire('Failed', 'You have no right to do this action', 'warning');
-      return;
-    }
-    const colRef = doc(db, 'categories', docId);
+
+  const handleDeleteCategory = async (categoryId) => {
     Swal.fire({
       title: 'Are you sure?',
       text: "You won't be able to revert this!",
@@ -96,7 +92,7 @@ const CategoryManage = () => {
       confirmButtonText: 'Yes, delete it!',
     }).then(async (result) => {
       if (result.isConfirmed) {
-        await deleteDoc(colRef);
+        await deleteCategory(categoryId);
         Swal.fire('Deleted!', 'Your file has been deleted.', 'success');
       }
     });
@@ -104,6 +100,7 @@ const CategoryManage = () => {
   const handleInputFilter = debounce((e) => {
     setFilter(e.target.value);
   }, 500);
+
   return (
     <div>
       <DashboardHeading title="Categories" desc="Manage your category">
@@ -156,14 +153,14 @@ const CategoryManage = () => {
             ))}
         </tbody>
       </Table>
-      {total > categoryList.length && (
+      {categoryList.length > 0 && (total > categoryList.length && (
         <div className="mt-10">
           <Button onClick={handleLoadMoreCategory} className="mx-auto">
             Load more
           </Button>
-          {total}
         </div>
-      )}
+      ))}
+      {categoryList.length <= 0 && <EmptyTable />}
     </div>
   );
 };

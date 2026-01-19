@@ -3,62 +3,56 @@ import { Radio } from '@/components/checkbox';
 import { Field } from '@/components/field';
 import { Input } from '@/components/input';
 import { Label } from '@/components/label';
-import useAuth from '@/hooks/useAuth';
-import { db } from '@/firebase-app/firebase-config';
-import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import DashboardHeading from '@/module/dashboard/DashboardHeading';
-import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import slugify from 'slugify';
 import { categoryStatus } from '@/utils/constants';
-import { useWatch } from "react-hook-form";
-
+import { useWatch } from 'react-hook-form';
+import { useDocument } from '@/hooks/useDocument';
+import { useEffect } from 'react';
+import { useFirestoreActions } from '@/hooks/useFirestoreActions';
+import { serverTimestamp } from 'firebase/firestore';
 
 const CategoryUpdate = () => {
   const {
     control,
-    reset,
     handleSubmit,
     formState: { isSubmitting },
+    reset,
   } = useForm({
     mode: 'onChange',
     defaultValues: {},
   });
+
+  const navigate = useNavigate();
   const [params] = useSearchParams();
   const categoryId = params.get('id');
-  const navigate = useNavigate();
-  const { isAuthenticated } = useAuth();
-  if(isAuthenticated)
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const colRef = doc(db, 'categories', categoryId);
-      const singleDoc = await getDoc(colRef);
-      reset(singleDoc.data());
-    }
-    fetchData();
-  }, [categoryId, reset]);
-
+  const { data: category, isLoading, error } = useDocument('categories', categoryId);
+  const { update: updateCategory } = useFirestoreActions('categories');
   const watchStatus = useWatch({
     control,
     name: "status",
   });
-  
+
+  useEffect(() => {
+    if (!isLoading && error && !category) {
+      navigate('/manage/category');
+    }
+    reset(category);
+  }, [isLoading, error, navigate, category, reset]);
 
   const handleUpdateCategory = async (values) => {
-    const colRef = doc(db, 'categories', categoryId);
-    await updateDoc(colRef, {
+    var newCategory = {
       name: values.name,
       slug: slugify(values.slug || values.name, { lower: true }),
       status: Number(values.status),
-    });
-    toast.success('Update category successfully!');
+      updatedAt: serverTimestamp(),
+    }
+    await updateCategory(categoryId, newCategory);
+   
     navigate('/manage/category');
   };
-
-  if (!categoryId) return null;
   
   return (
     <div>
@@ -105,7 +99,7 @@ const CategoryUpdate = () => {
           className="mx-auto w-[200px]"
           type="submit"
           disabled={isSubmitting}
-          isLoading={isSubmitting}
+          isLoading={isSubmitting || isLoading}
         >
           Update category
         </Button>

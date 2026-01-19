@@ -1,2 +1,2 @@
-import Table from './Table';
-export { Table };
+export { default as Table } from './Table';
+export { default as EmptyTable } from './EmptyTable';

@@ -3,7 +3,6 @@ import { Radio } from '@/components/checkbox';
 import { Field, FieldCheckboxes } from '@/components/field';
 import { Input } from '@/components/input';
 import { Label } from '@/components/label';
-import { useAuth } from '@/contexts/auth-context';
 import { db } from '@/firebase-app/firebase-config';
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import DashboardHeading from '@/module/dashboard/DashboardHeading';
@@ -11,8 +10,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import slugify from 'slugify';
-import Swal from 'sweetalert2';
-import { categoryStatus, userRole } from '@/utils/constants';
+import { categoryStatus } from '@/utils/constants';
 
 const CategoryAddNew = () => {
   const {
@@ -30,13 +28,9 @@ const CategoryAddNew = () => {
       createdAt: new Date(),
     },
   });
-  const { userInfo } = useAuth();
+
   const handleAddNewCategory = async (values) => {
     if (!isValid) return;
-    if (userInfo?.role !== userRole.ADMIN) {
-      Swal.fire('Failed', 'You have no right to do this action', 'warning');
-      return;
-    }
     const newValues = { ...values };
     newValues.slug = slugify(newValues.name || newValues.slug, {
       lower: true,
@@ -47,6 +41,7 @@ const CategoryAddNew = () => {
       await addDoc(colRef, {
         ...newValues,
         createdAt: serverTimestamp(),
+        updatedAt: serverTimestamp(),
       });
       toast.success('Create new category successfully!');
     } catch (error) {
@@ -57,6 +52,7 @@ const CategoryAddNew = () => {
         slug: '',
         status: 1,
         createdAt: new Date(),
+        updatedAt: new Date(),
       });
     }
   };
