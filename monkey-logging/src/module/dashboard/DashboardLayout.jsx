@@ -38,14 +38,13 @@ const DashboardStyles = styled.div`
   }
 `;
 const DashboardLayout = () => {
-  const { userInfo } = useAuth();
+  const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
-
   useEffect(() => {
-    if (!userInfo) {
+    if (!isAuthenticated) {
       navigate('/sign-in');
     }
-  }, [userInfo, navigate]);
+  }, [isAuthenticated, navigate]);
 
   return (
     <DashboardStyles>

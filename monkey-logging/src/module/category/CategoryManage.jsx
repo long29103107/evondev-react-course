@@ -2,7 +2,6 @@ import { ActionDelete, ActionEdit } from '@/components/action';
 import { Button } from '@/components/button';
 import { LabelStatus } from '@/components/label';
 import { Table } from '@/components/table';
-import { ActionView } from '@/components/action';
 import { db } from '@/firebase-app/firebase-config';
 import {
   collection,
@@ -81,6 +80,7 @@ const CategoryManage = () => {
   }, [filter]);
   const { userInfo } = useAuth();
   const handleDeleteCategory = async (docId) => {
+   
     if (userInfo?.role !== userRole.ADMIN) {
       Swal.fire('Failed', 'You have no right to do this action', 'warning');
       return;
@@ -122,7 +122,6 @@ const CategoryManage = () => {
       <Table>
         <thead>
           <tr>
-            <th>Id</th>
             <th>Name</th>
             <th>Slug</th>
             <th>Status</th>
@@ -133,7 +132,6 @@ const CategoryManage = () => {
           {categoryList.length > 0 &&
             categoryList.map((category) => (
               <tr key={category.id}>
-                <td>{category.id}</td>
                 <td>{category.name}</td>
                 <td>
                   <span className="italic text-gray-400">{category.slug}</span>
@@ -148,7 +146,6 @@ const CategoryManage = () => {
                 </td>
                 <td>
                   <div className="flex items-center text-gray-500 gap-x-3">
-                    <ActionView onClick={() => navigate(`/category/${category.slug}`)} />
                     <ActionEdit
                       onClick={() => navigate(`/manage/update-category?id=${category.id}`)}
                     />

@@ -4,9 +4,9 @@ import PropTypes from "prop-types";
 
 const LabelStatusStyles = styled.span`
   display: inline-block;
-  padding: 10px 15px;
+  padding: 4px 12px;
   border-radius: 8px;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 500;
 `;
 /**

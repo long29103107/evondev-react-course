@@ -1,8 +1,8 @@
-import Heading from 'components/layout/Heading';
-import Layout from 'components/layout/Layout';
-import { db } from 'firebase-app/firebase-config';
+import Heading from '@/components/layout/Heading';
+import Layout from '@/components/layout/Layout';
+import { db } from '@/firebase-app/firebase-config';
 import { collection, onSnapshot, query, where } from 'firebase/firestore';
-import PostItem from 'module/post/PostItem';
+import PostItem from '@/module/post/PostItem';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import usePageTitle from '@/hooks/usePageTitle';
@@ -13,7 +13,7 @@ const CategoryPage = () => {
   usePageTitle(`Category ${params.slug} | Monkey Blogging`);
 
   useEffect(() => {
-    async function fetchData() {
+    const fetchData = async () => {
       const docRef = query(collection(db, 'posts'), where('category.slug', '==', params.slug));
       onSnapshot(docRef, (snapshot) => {
         const results = [];

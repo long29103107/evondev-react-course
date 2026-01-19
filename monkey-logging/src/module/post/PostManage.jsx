@@ -1,4 +1,4 @@
-import { ActionDelete, ActionEdit, ActionView } from '@/components/action';
+import { ActionDelete, ActionEdit } from '@/components/action';
 import { Button } from '@/components/button';
 import { LabelStatus } from '@/components/label';
 import { Table } from '@/components/table';
@@ -168,7 +168,6 @@ const PostManage = () => {
                   <td>{renderPostStatus(post.status)}</td>
                   <td>
                     <div className="flex items-center text-gray-500 gap-x-3">
-                      <ActionView onClick={() => navigate(`/${post.slug}`)} />
                       <ActionEdit
                         onClick={() => navigate(`/manage/update-post?id=${post.id}`)}
                       />

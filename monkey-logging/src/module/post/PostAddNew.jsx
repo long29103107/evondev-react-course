@@ -3,7 +3,6 @@ import slugify from 'slugify';
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
 import {
   addDoc,
   collection,
@@ -29,25 +28,10 @@ import { Button } from '@/components/button';
 import { db } from '@/firebase-app/firebase-config';
 import { postStatus } from '@/utils/constants';
 import DashboardHeading from '@/module/dashboard/DashboardHeading';
+import useUploadcareImage from '@/hooks/useUploadcareImage';
 import useAuth from '@/hooks/useAuth';
 
-import useUploadcareImage from '@/hooks/useUploadcareImage';
-
-// const isAdmin = (userInfo) => {
-//   return userInfo.role === userRole.ADMIN;
-// };
-
 const PostAddNew = () => {
-  const { userInfo } = useAuth();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!userInfo) {
-      // || !isAdmin(userInfo)) {
-      navigate('/sign-in');
-    }
-  }, [userInfo, navigate]);
-
   const { control, watch, setValue, handleSubmit, getValues, reset } = useForm({
     mode: 'onChange',
     defaultValues: {
@@ -74,6 +58,7 @@ const PostAddNew = () => {
   const [categories, setCategories] = useState([]);
   const [selectCategory, setSelectCategory] = useState('');
   const [loading, setLoading] = useState(false);
+  const { userInfo } = useAuth();
   useEffect(
     () => async () => {
       const fetchUserData = async () => {

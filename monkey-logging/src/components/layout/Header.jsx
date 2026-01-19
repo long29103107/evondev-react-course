@@ -64,25 +64,21 @@ const menuLinks = [
     id: 1,
     url: '/home',
     title: 'Home',
-    requiredAuth: false,
   },
   {
     id: 2,
     url: '/blog',
     title: 'Blog',
-    requiredAuth: false,
   },
   {
     id: 3,
     url: '/contact',
     title: 'Contact',
-    requiredAuth: false,
   },
   {
     id: 4,
     url: '/dashboard',
     title: 'Dashboard',
-    requiredAuth: true,
   },
 ];
 
@@ -93,7 +89,7 @@ const getLastName = (name) => {
 };
 
 const Header = () => {
-  const { userInfo } = useAuth();
+  const { userInfo, isAuthenticated } = useAuth();
 
   return (
     <HeaderStyles>
@@ -104,7 +100,7 @@ const Header = () => {
           </NavLink>
           <ul className="menu">
             {menuLinks.map((link) => {
-              if (link.requiredAuth && !userInfo?.email) return null;
+              if (!isAuthenticated) return null;
               return (
                 <li key={link.id} className="menu-item">
                   <NavLink to={link.url} className="menu-link">

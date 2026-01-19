@@ -4,7 +4,6 @@ import PostRelated from '@/module/post/PostRelated';
 import PostMeta from '@/module/post/PostMeta';
 import PostImage from '@/module/post/PostImage';
 import PostCategory from '@/module/post/PostCategory';
-import PageNotFound from '@/pages/PageNotFound';
 import Layout from '@/components/layout/Layout';
 import AuthorBox from '@/components/author';
 import { Link, useParams } from 'react-router-dom';
@@ -13,6 +12,7 @@ import { collection, onSnapshot, query, where } from 'firebase/firestore';
 import useAuth from '@/hooks/useAuth';
 import { userRole } from '@/utils/constants';
 import usePageTitle from '@/hooks/usePageTitle';
+
 const PostDetailsPageStyles = styled.div`
   padding-bottom: 100px;
   .post {
@@ -103,6 +103,8 @@ const PostDetailsPageStyles = styled.div`
 const PostDetailsPage = () => {
   const { slug } = useParams();
   const [postInfo, setPostInfo] = useState({});
+  usePageTitle(`${postInfo.title} | Monkey Blogging`);
+
   useEffect(() => {
     async function fetchData() {
       if (!slug) return;
@@ -123,11 +125,7 @@ const PostDetailsPage = () => {
     document.body.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }, [slug]);
   const { userInfo } = useAuth();
-  if (!slug) return <PageNotFound />;
-  if (!postInfo.title) return null;
   const { user } = postInfo;
-
-  usePageTitle(`${postInfo.title} | Monkey Blogging`);
 
   return (
     <PostDetailsPageStyles>
@@ -155,12 +153,11 @@ const PostDetailsPage = () => {
           <div className="post-content">
             <div
               className="entry-content"
-              // Prevent XSS Attack recommen from React Docs
               dangerouslySetInnerHTML={{
                 __html: postInfo.content || '',
               }}
             />
-            <AuthorBox userId={user.id} />
+            {user && <AuthorBox userId={user.id} />}
           </div>
           <PostRelated categoryId={postInfo?.category?.id} />
         </div>

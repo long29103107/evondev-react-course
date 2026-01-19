@@ -1,8 +1,8 @@
 import { publicRoutes } from './modules/public.routes';
 import { dashboardRoutes } from './modules/dashboard.routes';
-import UnauthorizedPage from '@/pages/UnauthorizedPage';
-import ForbiddenPage from '@/pages/ForbiddenPage';
-import NotFoundPage from '@/pages/NotFoundPage';
+import UnauthorizedPage from '@/pages/error/UnauthorizedPage';
+import ForbiddenPage from '@/pages/error/ForbiddenPage';
+import NotFoundPage from '@/pages/error/NotFoundPage';
 
 export const appRoutes = [
   ...publicRoutes,

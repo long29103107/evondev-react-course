@@ -12,14 +12,14 @@ import { useForm } from 'react-hook-form';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import slugify from 'slugify';
-import Swal from 'sweetalert2';
-import { categoryStatus, userRole } from '@/utils/constants';
+import { categoryStatus } from '@/utils/constants';
+import { useWatch } from "react-hook-form";
+
 
 const CategoryUpdate = () => {
   const {
     control,
     reset,
-    watch,
     handleSubmit,
     formState: { isSubmitting },
   } = useForm({
@@ -29,22 +29,25 @@ const CategoryUpdate = () => {
   const [params] = useSearchParams();
   const categoryId = params.get('id');
   const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
+  if(isAuthenticated)
+
   useEffect(() => {
-    async function fetchData() {
+    const fetchData = async () => {
       const colRef = doc(db, 'categories', categoryId);
       const singleDoc = await getDoc(colRef);
       reset(singleDoc.data());
     }
     fetchData();
   }, [categoryId, reset]);
-  const watchStatus = watch('status');
-  const { userInfo } = useAuth();
+
+  const watchStatus = useWatch({
+    control,
+    name: "status",
+  });
+  
 
   const handleUpdateCategory = async (values) => {
-    if (userInfo?.role !== userRole.ADMIN) {
-      Swal.fire('Failed', 'You have no right to do this action', 'warning');
-      return;
-    }
     const colRef = doc(db, 'categories', categoryId);
     await updateDoc(colRef, {
       name: values.name,
@@ -54,7 +57,9 @@ const CategoryUpdate = () => {
     toast.success('Update category successfully!');
     navigate('/manage/category');
   };
+
   if (!categoryId) return null;
+  
   return (
     <div>
       <DashboardHeading
