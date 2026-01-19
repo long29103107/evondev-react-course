@@ -1,10 +1,9 @@
 import React from 'react';
 import ErrorPage from './ErrorPage';
-import { useEffect } from 'react';
+import usePageTitle from '@/hooks/usePageTitle';
+
 const NotFoundPage = () => {
-  useEffect(() => {
-    document.title = 'Not Found | Monkey Blogging';
-  }, []);
+  usePageTitle('Not Found | Monkey Blogging');
   return (
     <ErrorPage
       image="/404.png"

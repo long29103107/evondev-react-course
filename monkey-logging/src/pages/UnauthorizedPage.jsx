@@ -1,10 +1,8 @@
 import ErrorPage from "./ErrorPage";
-import { useEffect } from 'react';
+import usePageTitle from '@/hooks/usePageTitle';
 
 const UnauthorizedPage = () => {
-  useEffect(() => {
-    document.title = 'Unauthorized | Monkey Blogging';
-  }, []);
+  usePageTitle('Unauthorized | Monkey Blogging');
   return (
     <ErrorPage
       image="/401.png"

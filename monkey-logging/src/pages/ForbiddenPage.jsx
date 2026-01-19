@@ -1,10 +1,9 @@
 import ErrorPage from "./ErrorPage";
-import { useEffect } from 'react';
+import usePageTitle from '@/hooks/usePageTitle';
 
 const ForbiddenPage = () => {
-  useEffect(() => {
-    document.title = 'Forbidden | Monkey Blogging';
-  }, []);
+  usePageTitle('Forbidden | Monkey Blogging');
+
   return (
     <ErrorPage
       image="/403.png"

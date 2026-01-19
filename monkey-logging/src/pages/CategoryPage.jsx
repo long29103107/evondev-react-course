@@ -5,14 +5,13 @@ import { collection, onSnapshot, query, where } from 'firebase/firestore';
 import PostItem from 'module/post/PostItem';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import usePageTitle from '@/hooks/usePageTitle';
 
 const CategoryPage = () => {
   const [posts, setPosts] = useState([]);
   const params = useParams();
-  useEffect(() => {
-    document.title = `Category ${params.slug} | Monkey Blogging`;
-  }, [params.slug]);
-  
+  usePageTitle(`Category ${params.slug} | Monkey Blogging`);
+
   useEffect(() => {
     async function fetchData() {
       const docRef = query(collection(db, 'posts'), where('category.slug', '==', params.slug));

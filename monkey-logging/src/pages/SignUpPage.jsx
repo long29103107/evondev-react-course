@@ -13,6 +13,7 @@ import { auth, db } from '@/firebase-app/firebase-config';
 import { useNavigate, NavLink } from 'react-router-dom';
 import { collection, setDoc, doc } from 'firebase/firestore';
 import AuthenticationPage from '@/pages/AuthenticationPage';
+import usePageTitle from '@/hooks/usePageTitle';
 
 const schema = yup.object().shape({
   fullName: yup.string().required('Please enter your full name'),
@@ -74,10 +75,7 @@ const SignUpPage = () => {
     navigate('/');
   };
 
-  useEffect(() => {
-    document.title = 'Sign Up | Monkey Blogging';
-  }, []);
-
+  usePageTitle('Sign Up | Monkey Blogging');
   return (
     <AuthenticationPage>
       <form className="form" onSubmit={handleSubmit(handleSignUp)}>

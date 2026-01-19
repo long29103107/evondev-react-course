@@ -12,6 +12,7 @@ import { db } from '@/firebase-app/firebase-config';
 import { collection, onSnapshot, query, where } from 'firebase/firestore';
 import useAuth from '@/hooks/useAuth';
 import { userRole } from '@/utils/constants';
+import usePageTitle from '@/hooks/usePageTitle';
 const PostDetailsPageStyles = styled.div`
   padding-bottom: 100px;
   .post {
@@ -126,9 +127,7 @@ const PostDetailsPage = () => {
   if (!postInfo.title) return null;
   const { user } = postInfo;
 
-  useEffect(() => {
-    document.title = `${postInfo.title} | Monkey Blogging`;
-  }, [postInfo.title]);
+  usePageTitle(`${postInfo.title} | Monkey Blogging`);
 
   return (
     <PostDetailsPageStyles>
