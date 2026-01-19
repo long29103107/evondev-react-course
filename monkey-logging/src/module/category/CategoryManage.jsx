@@ -21,7 +21,7 @@ import { debounce } from 'lodash';
 import { useFirestoreActions } from '@/hooks/useFirestoreActions';
 import { EmptyTable } from '@/components/table';
 
-const CATEGORY_PER_PAGE = 10;
+const CATEGORY_PER_PAGE = 5;
 
 const CategoryManage = () => {
   const navigate = useNavigate();
@@ -57,7 +57,7 @@ const CategoryManage = () => {
     const fetchData = async () => {
       const colRef = collection(db, 'categories');
       const newRef = filter
-        ? query(colRef, where('name', '>=', filter),  where('name', '<=', filter + 'utf8'))
+        ? query(colRef, where('name', '>=', filter),  where('name', '<=', filter + 'utf8'), limit(CATEGORY_PER_PAGE))
         : query(colRef, limit(CATEGORY_PER_PAGE));
       const documentSnapshots = await getDocs(newRef);
       const lastVisible = documentSnapshots.docs[documentSnapshots.docs.length - 1];
@@ -75,6 +75,7 @@ const CategoryManage = () => {
           });
         });
         setCategoryList(results);
+        setTotal(snapshot.size);
       });
       setLastDoc(lastVisible);
     };
@@ -101,6 +102,9 @@ const CategoryManage = () => {
     setFilter(e.target.value);
   }, 500);
 
+
+  console.log("categoryList", categoryList);
+  console.log("total", total);
   return (
     <div>
       <DashboardHeading title="Categories" desc="Manage your category">

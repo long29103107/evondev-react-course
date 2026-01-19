@@ -21,7 +21,7 @@ import ImageUploader from 'quill-image-uploader';
 import axios from 'axios';
 import { imgbbAPI } from 'config/apiConfig';
 import slugify from 'slugify';
-import { useAuth } from '@/contexts/auth-context';
+import useAuth from '@/context/auth-context';
 import Swal from 'sweetalert2';
 Quill.register('modules/imageUploader', ImageUploader);
 

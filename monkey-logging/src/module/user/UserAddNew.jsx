@@ -14,7 +14,7 @@ import { auth, db } from '@/firebase-app/firebase-config';
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import slugify from 'slugify';
 import { toast } from 'react-toastify';
-import { useAuth } from '@/contexts/auth-context';
+import useAuth from '@/context/auth-context';
 import Swal from 'sweetalert2';
 
 const UserAddNew = () => {

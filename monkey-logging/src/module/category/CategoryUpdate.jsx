@@ -30,6 +30,7 @@ const CategoryUpdate = () => {
   const categoryId = params.get('id');
   const { data: category, isLoading, error } = useDocument('categories', categoryId);
   const { update: updateCategory } = useFirestoreActions('categories');
+
   const watchStatus = useWatch({
     control,
     name: "status",

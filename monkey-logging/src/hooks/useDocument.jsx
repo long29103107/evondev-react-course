@@ -19,6 +19,7 @@ export const useDocument = (collectionName, id) => {
       try {
         const ref = doc(db, collectionName, id);
         const snap = await getDoc(ref);
+        console.log("snap", snap.data());
 
         if (!snap.exists()) {
           throw new Error('DOCUMENT_NOT_FOUND');
