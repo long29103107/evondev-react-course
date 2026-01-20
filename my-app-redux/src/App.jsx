@@ -1,12 +1,12 @@
 import './styles/tailwind.css';
-import Card from '@/components/Card';
-import SwitchDarkMode from '@/components/SwitchDarkMode';
+import SideBar from '@/components/SideBar';
+import ButtonToggle from '@/components/ButtonToggle';
 
 const App = () => {
   return (
     <div className="min-h-screen">
-      <Card />
-      <SwitchDarkMode />
+      <SideBar />
+      <ButtonToggle />
     </div>
   )
 }

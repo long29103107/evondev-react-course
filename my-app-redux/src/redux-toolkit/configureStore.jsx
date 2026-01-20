@@ -1,14 +1,32 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
-import counterSlice from './counterSlice';
+import counterSlice, { incrementByValue } from './counterSlice';
 import globalSlice from './globalSlice';
+import logger from 'redux-logger';
 
 const reducer = combineReducers({
   counter: counterSlice,
   global: globalSlice,
 });
 
+// const loggerMiddleware = (store) => (next) => (action) => {
+//   console.log('dispatching', action);
+//   const result = next(action);
+//   console.log('next state', store.getState());
+//   return result;
+// };
+
 const store = configureStore({
   reducer,
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
 });
+
+// store.subscribe(() => {
+//   //javascript observer pattern
+//   console.log('state changed', store.getState().counter.count);
+// });
+
+// store.dispatch(incrementByValue(10));
+// store.dispatch(incrementByValue(10));
+// store.dispatch(incrementByValue(10));
 
 export default store;
