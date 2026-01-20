@@ -1,9 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { getInitialDarkMode } from '@/themeStorage';
+
 
 const globalSlice = createSlice({
     name: 'global',
     initialState: {
-        darkMode: false,
+        darkMode: getInitialDarkMode() || false,
     },
     reducers: {
         toggleDarkMode: (state, { payload }) => {

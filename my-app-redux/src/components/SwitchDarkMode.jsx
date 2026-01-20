@@ -4,11 +4,16 @@ import { toggleDarkMode } from '@/redux-toolkit/globalSlice';
 const SwitchDarkMode = () => {
     const darkMode = useSelector((state) => state.global.darkMode);
     const dispatch = useDispatch();
+    if (darkMode) {
+        document.documentElement.classList.add("dark");
+    } else {
+        document.documentElement.classList.remove("dark");
+    }
   
     const toggleTheme = () => {
-        const isDark = document.documentElement.classList.toggle("dark");
-        localStorage.setItem(darkMode);
-        dispatch(toggleDarkMode(isDark));
+        document.documentElement.classList.toggle("dark");
+        localStorage.setItem("theme", !darkMode);
+        dispatch(toggleDarkMode(!darkMode));
     };
   
     return (
