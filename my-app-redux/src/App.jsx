@@ -1,9 +1,14 @@
 import './styles/tailwind.css';
-import Counter from './components/Counter';
+import Card from '@/components/Card';
+import SwitchDarkMode from '@/components/SwitchDarkMode';
+
 const App = () => {
-  return <>
-    <Counter />
-  </>;
-};
+  return (
+    <div className="min-h-screen">
+      <Card />
+      <SwitchDarkMode />
+    </div>
+  )
+}
 
 export default App;
