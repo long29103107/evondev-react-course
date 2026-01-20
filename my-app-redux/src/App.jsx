@@ -1,12 +1,22 @@
 import './styles/tailwind.css';
-import SideBar from '@/components/SideBar';
-import ButtonToggle from '@/components/ButtonToggle';
+import HackerNews from '@/components/HackerNew';
+import { takeEvery } from 'redux-saga/effects';
+import { fetchData } from '@/redux-toolkit/saga';
+import { useEffect } from 'react';
 
 const App = () => {
+
+
+
+  useEffect(() => {
+    function* demoSaga() {
+      yield takeEvery('FETCH_DATA', fetchData);
+    }
+  }, []);
+
   return (
-    <div className="min-h-screen">
-      <SideBar />
-      <ButtonToggle />
+    <div>
+      <HackerNews />
     </div>
   )
 }

@@ -14,10 +14,12 @@
     "@reduxjs/toolkit": "^2.11.2",
     "@tailwindcss/vite": "^4.1.18",
     "@uidotdev/usehooks": "^2.4.1",
+    "axios": "^1.13.2",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-redux": "^9.2.0",
     "redux-logger": "^3.0.6",
+    "redux-saga": "^1.4.2",
     "vite-plugin-eslint": "^1.8.1"
   },
   "devDependencies": {
