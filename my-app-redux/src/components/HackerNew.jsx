@@ -1,47 +1,14 @@
-// npm install axios
-import axios from "axios";
-import React, { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getNews, setQuery } from "../sagas/news/newsSlice";
+import { useEffect } from "react";
 
 const HackerNews = () => {
-  const [hits, setHits] = useState([]);
-  const [query, setQuery] = useState("");
-  const [loading, setLoading] = useState(true);
-  const [errorMessage, setErrorMessage] = useState("");
-  const handleFetchData = useRef({});
-  const [url, setUrl] = useState(
-    `https://hn.algolia.com/api/v1/search?query=react`
-  );
-
-  const isMounted = useRef(true);
+  const dispatch = useDispatch();
+  const { hits, loading, errorMessage, query } = useSelector((state) => state.news);
 
   useEffect(() => {
-    isMounted.current = true;
-    return () => {
-      isMounted.current = false;
-    };
-  }, []);
-
-  useEffect(() => {
-    handleFetchData.current = async () => {
-      setLoading(true);
-      try {
-        const response = await axios.get(url);
-        setTimeout(() => {
-          if (isMounted.current) {
-            setHits(response.data?.hits || []);
-            setLoading(false);
-          }
-        }, 3000);
-      } catch (error) {
-        setLoading(false);
-        setErrorMessage(`The error happend ${error}`);
-      }
-    };
-  }, [url]);
-
-  useEffect(() => {
-    handleFetchData.current();
-  }, [url]);
+    dispatch(getNews(query));
+  }, [dispatch, query]);
 
   return (
     <div className="w-2/4 p-5 mx-auto mt-5 mb-5 bg-white rounded-lg shadow-md">
@@ -50,13 +17,11 @@ const HackerNews = () => {
           type="text"
           className="block w-full p-5 transition-all border border-gray-200 rounded-md focus:border-blue-400"
           placeholder="Typing your keyword..."
-          defaultValue={query}
-          onChange={(e) => setQuery(e.target.value)}
+          value={query}
+          onChange={(e) => dispatch(setQuery(e.target.value))}
         />
         <button
-          onClick={() =>
-            setUrl(`https://hn.algolia.com/api/v1/search?query=${query}`)
-          }
+          onClick={() => dispatch(getNews(query))}
           className="flex-shrink-0 p-5 font-semibold text-white bg-blue-500 rounded-md"
         >
           Fetching

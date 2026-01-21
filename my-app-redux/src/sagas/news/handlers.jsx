@@ -2,9 +2,10 @@ import { call, put } from 'redux-saga/effects';
 import requestGetNews from './requests';
 import { setNews, setErrorMessage, setLoading } from './newsSlice';
 
-export default function* handleGetNews(action) {
+export default function* fetchNews({ payload }) {
     try {
-        const response = yield call(requestGetNews, action.payload);
+        yield put(setLoading(true));
+        const response = yield call(requestGetNews, payload);
         const { hits } = response.data;
         yield put(setNews(hits));
     } catch (error) {

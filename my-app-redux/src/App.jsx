@@ -1,16 +1,9 @@
 import './styles/tailwind.css';
-import { useDispatch } from 'react-redux';
-import { getNews } from './sagas/news/newsSlice';
-import { useEffect } from 'react';
-
+import HackerNews from '@/components/HackerNew';
 const App = () => {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getNews('react'));
-  }, [dispatch]);
   return (
     <div>
-      <h1>Hacker News</h1>
+      <HackerNews />
     </div>
   )
 }
