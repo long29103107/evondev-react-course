@@ -1,22 +1,16 @@
 import './styles/tailwind.css';
-import HackerNews from '@/components/HackerNew';
-import { takeEvery } from 'redux-saga/effects';
-import { fetchData } from '@/redux-toolkit/saga';
+import { useDispatch } from 'react-redux';
+import { getNews } from './sagas/news/newsSlice';
 import { useEffect } from 'react';
 
 const App = () => {
-
-
-
+  const dispatch = useDispatch();
   useEffect(() => {
-    function* demoSaga() {
-      yield takeEvery('FETCH_DATA', fetchData);
-    }
-  }, []);
-
+    dispatch(getNews('react'));
+  }, [dispatch]);
   return (
     <div>
-      <HackerNews />
+      <h1>Hacker News</h1>
     </div>
   )
 }

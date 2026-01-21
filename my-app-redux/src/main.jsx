@@ -4,7 +4,7 @@ import App from '@/App.jsx';
 import { Provider } from 'react-redux';
 // import store from '@/redux/configureStore.jsx';
 import { initTheme } from "./theme";
-import store from '@/redux-toolkit/configureStore.jsx';
+import store from '@/sagas/configureStore.jsx';
 
 initTheme();
 
