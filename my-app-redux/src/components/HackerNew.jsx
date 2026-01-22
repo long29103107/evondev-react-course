@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { getNews, setQuery } from "../sagas/news/newsSlice";
+import { handlerFetchNews, setQuery } from "../redux-thunk/newsSlice";
 import { useEffect } from "react";
 import useDebounce from "../hooks/useDebounce";
 
@@ -9,12 +9,8 @@ const HackerNews = () => {
   const debouncedQuery = useDebounce(query, 250);
 
   useEffect(() => {
-    dispatch(getNews(debouncedQuery));
+    dispatch(handlerFetchNews(debouncedQuery));
   }, [dispatch, debouncedQuery]);
-
-  console.log('debouncedQuery', debouncedQuery);
-  console.log('query', query);
-  console.log('hits', hits);
 
   return (
     <div className="w-2/4 p-5 mx-auto mt-5 mb-5 bg-white rounded-lg shadow-md">
@@ -27,7 +23,7 @@ const HackerNews = () => {
           onChange={(e) => dispatch(setQuery(e.target.value))}
         />
         <button
-          onClick={() => dispatch(getNews(debouncedQuery))}
+          onClick={() => dispatch(handlerFetchNews(debouncedQuery))}
           className="flex-shrink-0 p-5 font-semibold text-white bg-blue-500 rounded-md"
         >
           Fetching
