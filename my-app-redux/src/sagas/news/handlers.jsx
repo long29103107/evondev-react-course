@@ -3,6 +3,7 @@ import requestGetNews from './requests';
 import { setNews, setErrorMessage, setLoading } from './newsSlice';
 
 export default function* fetchNews({ payload }) {
+
     let query = "";
     try {
         const newsQuery = yield select(state => state.news.query);
