@@ -1,6 +1,6 @@
 # EvonDev React Course - Learning Projects
 
-This repository contains all the projects and exercises completed during the ReactJS Master course from [EvonHub](https://evonhub.dev/). Each folder represents a different section of the course, covering various React concepts and real-world application development.
+This repository contains all the projects and exercises completed during the **ReactJS từ cơ bản đến nâng cao dành cho người mới** course from [EvonHub](https://evonhub.dev/course/khoa-hoc-reactjs-co-ban). Each folder represents a different section of the course, covering various React concepts and real-world application development.
 
 ---
 
@@ -302,7 +302,8 @@ npm run build
 
 ## 🎓 Course Information
 
-**Course:** ReactJS Master - Nắm vững kiến thức React chuyên sâu  
+**Course:** ReactJS từ cơ bản đến nâng cao dành cho người mới  
+**Course URL:** [https://evonhub.dev/course/khoa-hoc-reactjs-co-ban](https://evonhub.dev/course/khoa-hoc-reactjs-co-ban)  
 **Platform:** [EvonHub](https://evonhub.dev/)  
 **Instructor:** EvonDev
 
